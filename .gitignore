@@ -31,3 +31,28 @@ backend/!**/src/test/**/build/
 
 ### VS Code ###
 backend/.vscode/
+
+### UNITY ###
+Energy_Elixer/Library/
+Energy_Elixer/Logs/
+Energy_Elixer/obj/
+Energy_Elixer/Temp/
+Energy_Elixer/UserSettings/
+
+# Visual Studio / Rider
+Energy_Elixer/.vs/
+Energy_Elixer/*.csproj
+Energy_Elixer/*.sln
+Energy_Elixer/*.userprefs
+Energy_Elixer/*.user
+Energy_Elixer/*.unityproj
+Energy_Elixer/*.booproj
+
+
+# OS generated files #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
