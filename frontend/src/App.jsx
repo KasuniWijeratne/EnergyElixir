@@ -16,6 +16,22 @@ const App = () => {
   const handleNameChange = (e) => {
     setUsername(e.target.value);
   };
+
+  const submit = () => {
+    const questionNumber = 0;
+    const marks =0;
+    const level = 0;
+    const coins = 0;
+
+    const player = {username, questionNumber, marks, level, coins};
+    fetch("http://localhost:8080/player/add", {
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(player)
+        }).then(()=>{
+            console.log("player updated",JSON.stringify(player));
+        })
+  }
   
   return (
     <div className='app-container'>
@@ -35,7 +51,7 @@ const App = () => {
         </label>
         <input type="text" id="username" value={username} onChange={handleNameChange} required
         className='input'/>
-        <p><button type="submit" className='submit'>Submit</button></p>
+        <p><button type="submit" className='submit' onClick={submit}>Submit</button></p>
         
         </form>
       </>}

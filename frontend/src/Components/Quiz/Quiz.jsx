@@ -1,11 +1,28 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './Quiz.css'
 import { data } from '../../assets/data';
 
 const Quiz = (name) => {
-    console.log(name.username);
+
     const username = name.username;
+    const [player, setPlayer] = useState([]);
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/player/getPlayer"+"?username="+username).then(res=>res.json())
+        .then((response)=>{setPlayer(response);})},[username])
+
+    console.log(player);
+
     let [index, setIndex] = useState(0);
+
+    // if (player.questionNumber===null){
+    //     setIndex(0);
+    // }
+    // else{
+    //     setIndex(player.questionNumber);
+    // }
+
+    // setIndex(player.questionNumber);
     let [question, setQuestion] = useState(data[index]);
     let [lock, setLock] = useState(false);
     let [marks,setMarks] = useState(0);

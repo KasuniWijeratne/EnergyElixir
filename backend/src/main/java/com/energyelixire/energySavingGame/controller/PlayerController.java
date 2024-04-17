@@ -85,10 +85,8 @@ public class PlayerController {
         }
     }
 
-
     @GetMapping("/getPlayer")
-    public ResponseEntity<Player> getPlayer(@RequestBody Map<String, String> requestBody) {
-        String username = requestBody.get("username");
+    public ResponseEntity<Player> getPlayer(@RequestParam("username") String username) {
         try {
             Player player = playerService.getPlayerByUsername(username);
             return new ResponseEntity<>(player, HttpStatus.OK);
@@ -96,8 +94,5 @@ public class PlayerController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-
-
 }
 
