@@ -1,6 +1,5 @@
 package com.energyelixire.energySavingGame.controller;
 
-
 import com.energyelixire.energySavingGame.model.Player;
 import com.energyelixire.energySavingGame.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/player")
-
+@CrossOrigin
 public class PlayerController {
     @Autowired
     private PlayerService playerService;

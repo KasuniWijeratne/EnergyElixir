@@ -1,0 +1,18 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  height: 100vh;
+  /* background-image: linear-gradient(#D8C7FF, #19006c); */
+  background-image: url('./assets/solar-panels.jpg');
+  font-family: 'poppins';
+}
+
+/* .bg {
+  width: 200px;
+  height: 200px;
+  background-size: cover;
+  background-image: url();
+} */
