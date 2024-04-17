@@ -4,10 +4,7 @@ using UnityEngine.Networking;
 using System.Text;
 using System.Collections;
 
-[System.Serializable]
-public class AuthRequest {
-    public string apiKey;
-}
+
 
 
 [System.Serializable]
@@ -22,6 +19,12 @@ public class UserProfile {
         public string nic;
         public string phoneNumber;
         public string email;
+    }
+
+    public bool IsProfileCompleted() {
+        return user != null && !string.IsNullOrEmpty(user.firstname) && !string.IsNullOrEmpty(user.lastname) &&
+               !string.IsNullOrEmpty(user.username) && !string.IsNullOrEmpty(user.nic) &&
+               !string.IsNullOrEmpty(user.phoneNumber) && !string.IsNullOrEmpty(user.email);
     }
 }
 
@@ -56,12 +59,17 @@ public class APIHandler : MonoBehaviour {
     }
 
     void Awake() {
-        if (instance != null && instance != this) {
-            Destroy(this.gameObject); // Ensure that there is only one instance
-        }
-        else {
+        if (instance == null) {
             instance = this;
-            DontDestroyOnLoad(this.gameObject); // Make it persistent across scenes
+            GameObject apiHandlerObj = this.gameObject;
+
+            // Ensure it's a root GameObject
+            apiHandlerObj.transform.parent = null;
+
+            DontDestroyOnLoad(apiHandlerObj); // Make it persistent across scenes
+        }
+        else if (instance != this) {
+            Destroy(gameObject);
         }
     }
 
@@ -76,7 +84,7 @@ public class APIHandler : MonoBehaviour {
     }
 
 
-    public IEnumerator Authenticate(string apiKey) {
+    public IEnumerator Authenticate(string apiKey, Action callback) {
         string authUrl = $"{baseUrl}/api/login";
         AuthRequest requestBody = new AuthRequest { apiKey = apiKey };
         string json = JsonUtility.ToJson(requestBody);
@@ -102,14 +110,47 @@ public class APIHandler : MonoBehaviour {
             else {
                 ApiAuthResponse response = JsonUtility.FromJson<ApiAuthResponse>(request.downloadHandler.text);
                 jwtToken = response.token;
-                /*Debug.Log("Authenticated successfully, token: " + jwtToken);*/
-                FetchPlayerProfile();
+                Debug.Log("Authenticated successfully");
+                callback?.Invoke();
+                //FetchPlayerProfile();
+            }
+        }
+    }
+
+    public IEnumerator Authenticate(string apiKey, Action<string> OnSuccess, Action<string> OnError) {
+        string authUrl = $"{baseUrl}/api/login";
+        AuthRequest requestBody = new AuthRequest { apiKey = apiKey };
+        string json = JsonUtility.ToJson(requestBody);
+
+        using (UnityWebRequest request = UnityWebRequest.PostWwwForm(authUrl, "POST")) {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
+                OnError?.Invoke(request.error);
+            }
+            else if (request.responseCode == 500) {
+                OnError?.Invoke("Server Error: " + request.downloadHandler.text);
+            }
+            else {
+                ApiAuthResponse response = JsonUtility.FromJson<ApiAuthResponse>(request.downloadHandler.text);
+                jwtToken = response.token;
+                OnSuccess?.Invoke("Authentication Successful");
             }
         }
     }
 
     public void FetchPlayerProfile() {
         StartCoroutine(SendGetRequest("api/user/profile/view", HandleProfileSuccess, HandleProfileError));
+    }
+
+    //onSuccess - if the profile is successfully fetched from the API and onError - if there is an error in fetching the profile
+    public void FetchPlayerProfile(System.Action<string> onSuccess, System.Action<string> onError) { 
+        StartCoroutine(SendGetRequest("api/user/profile/view", onSuccess, onError));
     }
 
     private void HandleProfileSuccess(string response) {
@@ -131,5 +172,9 @@ public class APIHandler : MonoBehaviour {
     [Serializable]
     private class ApiAuthResponse {
         public string token;
+    }
+    [System.Serializable]
+    public class AuthRequest {
+        public string apiKey;
     }
 }
