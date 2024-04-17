@@ -1,6 +1,7 @@
 package com.energyelixire.energySavingGame.service;
 
 import com.energyelixire.energySavingGame.model.Player;
+
 import java.util.List;
 
 public interface PlayerService {
@@ -11,4 +12,5 @@ public interface PlayerService {
     public void updateLevel(Player player);
     public void updateCoins(Player player);
     public void deletePlayer(Player player);
+    public Player getPlayerByUsername(String username);
 }
