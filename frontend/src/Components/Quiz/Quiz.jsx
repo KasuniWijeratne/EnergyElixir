@@ -2,10 +2,9 @@ import React, { useState, useRef } from 'react'
 import './Quiz.css'
 import { data } from '../../assets/data';
 
-const Quiz = () => {
-
-    let [nic, setNic] = useState('200015202847');
-
+const Quiz = (name) => {
+    console.log(name.username);
+    const username = name.username;
     let [index, setIndex] = useState(0);
     let [question, setQuestion] = useState(data[index]);
     let [lock, setLock] = useState(false);
@@ -39,7 +38,6 @@ const Quiz = () => {
         else{
             setAnswer('your answer is wrong')
         }
-        
     }
     const generateFeedback = () => {
         if (selectedNumber===1){
@@ -54,7 +52,6 @@ const Quiz = () => {
         else {
             setComment(question.option4[1]);
         }
-
     }
 
     const checkAns = () => {
@@ -69,7 +66,7 @@ const Quiz = () => {
             setFeedback(true);
             generateFeedback();
             const questionNumber = index+1;
-            const currentQustion =  {nic, questionNumber};
+            const currentQustion =  {username, questionNumber};
             fetch("http://localhost:8080/player/updateQuestionNumber", {
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -101,7 +98,7 @@ const Quiz = () => {
 
     const updateDatabase = (e)=>{
         e.preventDefault();
-        const player = {nic, marks};
+        const player = {username, marks};
         fetch("http://localhost:8080/player/updateMarks", {
             method:"POST",
             headers:{"Content-Type":"application/json"},

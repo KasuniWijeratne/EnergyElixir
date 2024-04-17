@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/player")
-
+@CrossOrigin
 public class PlayerController {
     @Autowired
     private PlayerService playerService;
