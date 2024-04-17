@@ -47,7 +47,7 @@ public class DatabaseHandler : MonoBehaviour
             yield return request.SendWebRequest();  // Wait for the request to complete
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
-                Debug.LogError("Error in GET request: " + request.error);
+                Debug.Log("Error in GET request: " + request.error);
                 onError?.Invoke(request.error);
             }
             else {
