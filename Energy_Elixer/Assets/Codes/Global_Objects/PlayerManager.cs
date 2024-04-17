@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     private const string baseUrl = "http://";
     public UserProfile userProfile;
     private string playerId;
+    private bool isPlayerQuestionnaireCompleted;
 
 
     public event System.Action OnPlayerProfileLoaded;
@@ -20,6 +21,15 @@ public class PlayerManager : MonoBehaviour
         }
         set {
             isPlayerProfileCompleted = value;
+        }
+    }
+
+    public bool IsPlayerQuestionnaireCompleted {
+        get {
+            return isPlayerQuestionnaireCompleted;
+        }
+        set {
+            isPlayerQuestionnaireCompleted = value;
         }
     }
 
