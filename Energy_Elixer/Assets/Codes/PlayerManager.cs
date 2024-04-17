@@ -18,6 +18,9 @@ public class PlayerManager : MonoBehaviour
         get {
             return isPlayerProfileCompleted;
         }
+        set {
+            isPlayerProfileCompleted = value;
+        }
     }
 
 
@@ -45,6 +48,21 @@ public class PlayerManager : MonoBehaviour
             }
             return instance;
         }
+    }
+
+    public void SetPlayerId(string id) {
+        playerId = id;
+    }
+
+    public string GetPlayerId() {
+        return playerId;
+    }
+
+    public UserProfile GetUserProfile() {
+        return userProfile;
+    }
+    public void SetUserProfile(UserProfile profile) {
+        userProfile = profile;
     }
 
 

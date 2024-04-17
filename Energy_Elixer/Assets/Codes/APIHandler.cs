@@ -3,16 +3,28 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.Text;
 using System.Collections;
-
-
-
+using UnityEngine.Assertions;
 
 [System.Serializable]
 public class UserProfile {
     public User user;
 
+    public UserProfile() {
+        user = new User();
+    }
+
     [System.Serializable]
     public class User {
+
+        public User() {
+            firstname = "";
+            lastname = "";
+            username = "";
+            nic = "";
+            phoneNumber = "";
+            email = "";
+        }
+
         public string firstname;
         public string lastname;
         public string username;
@@ -50,6 +62,32 @@ public class APIHandler : MonoBehaviour {
 
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
                 Debug.LogError("Error in GET request: " + request.error);
+                onError?.Invoke(request.error);
+            }
+            else {
+                onSuccess?.Invoke(request.downloadHandler.text);  // Handle the successful response
+            }
+        }
+    }
+
+
+
+    private IEnumerator SendPutRequests(string path, string json, System.Action<string> onSuccess, System.Action<string> onError) {
+        if (string.IsNullOrEmpty(jwtToken)) {
+            Debug.LogError("JWT token is empty.");
+            onError?.Invoke("JWT token is empty.");
+            yield break;
+        }
+
+        string url = $"{baseUrl}/{path}";
+        using (UnityWebRequest request = UnityWebRequest.Put(url, json)) {
+            request.SetRequestHeader("Authorization", $"Bearer {jwtToken}");
+            request.SetRequestHeader("Content-Type", "application/json");
+            yield return request.SendWebRequest();  // Wait for the request to complete
+
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError) {
+                Debug.LogError("Error in PUT request: " + request.error);
+                Debug.LogError("Error in PUT request: " + request.downloadHandler.text);
                 onError?.Invoke(request.error);
             }
             else {
@@ -152,6 +190,27 @@ public class APIHandler : MonoBehaviour {
     public void FetchPlayerProfile(System.Action<string> onSuccess, System.Action<string> onError) { 
         StartCoroutine(SendGetRequest("api/user/profile/view", onSuccess, onError));
     }
+
+    public void UpdatePlayerProfile(UserProfile user) {
+        string json = JsonUtility.ToJson(user.user);
+
+        Debug.Log("JSON: " + json);
+
+        StartCoroutine(SendPutRequests("api/user/profile/update", json, HandleUpdateProfileSuccess, HandleUpdateProfileError));
+    }
+
+    private void HandleUpdateProfileSuccess(string response) {
+        UserProfile profile = JsonUtility.FromJson<UserProfile>(response);
+        PlayerManager.Instance.SetUserProfile(profile);
+        PlayerManager.Instance.IsPlayerProfileCompleted = true;
+
+    }
+
+    private void HandleUpdateProfileError(string error) {
+        Debug.LogError("Error updating profile: " + error);
+    }
+
+
 
     private void HandleProfileSuccess(string response) {
         Debug.Log("Profile data successfully fetched: " + response);
