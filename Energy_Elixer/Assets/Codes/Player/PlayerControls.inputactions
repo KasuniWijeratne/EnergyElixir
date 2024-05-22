@@ -1,0 +1,56 @@
+{
+    "name": "Player Controls",
+    "maps": [
+        {
+            "name": "Move",
+            "id": "98de0ce8-0b45-4482-97ec-bfcd453683b4",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "e57e55ec-f97b-479e-b983-876e99e0808c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "370f0957-ac1f-4d86-be5c-b7479beb35c4",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "cc8d403f-7667-4418-bc02-84d5c9c69af2",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "62483531-5d50-46b7-a051-3f0c5126471e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
