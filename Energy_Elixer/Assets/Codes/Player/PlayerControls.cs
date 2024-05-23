@@ -24,61 +24,82 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Move"",
-            ""id"": ""98de0ce8-0b45-4482-97ec-bfcd453683b4"",
+            ""name"": ""Ground"",
+            ""id"": ""1869956b-41b5-4da3-ad08-9b09ebbeb434"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""08993137-414c-4297-a3e3-4616c760cdf5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
-                    ""id"": ""e57e55ec-f97b-479e-b983-876e99e0808c"",
+                    ""id"": ""e4093974-153b-477e-8bde-0ea11d2cb2ad"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": ""1D Axis"",
-                    ""id"": ""370f0957-ac1f-4d86-be5c-b7479beb35c4"",
+                    ""id"": ""ab4d0af7-b741-48ff-9d0b-eb9b546151db"",
                     ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""negative"",
-                    ""id"": ""cc8d403f-7667-4418-bc02-84d5c9c69af2"",
+                    ""id"": ""8cbe93d7-fbc8-4ee9-b8e6-9f2af843fd43"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""positive"",
-                    ""id"": ""62483531-5d50-46b7-a051-3f0c5126471e"",
+                    ""id"": ""ae9ca9fd-308f-4880-a993-0f5361e3e56a"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4bd7e44b-d0b7-464d-ad45-b70ddd2e81a9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Move
-        m_Move = asset.FindActionMap("Move", throwIfNotFound: true);
-        m_Move_Newaction = m_Move.FindAction("New action", throwIfNotFound: true);
+        // Ground
+        m_Ground = asset.FindActionMap("Ground", throwIfNotFound: true);
+        m_Ground_Move = m_Ground.FindAction("Move", throwIfNotFound: true);
+        m_Ground_Jump = m_Ground.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -137,53 +158,62 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Move
-    private readonly InputActionMap m_Move;
-    private List<IMoveActions> m_MoveActionsCallbackInterfaces = new List<IMoveActions>();
-    private readonly InputAction m_Move_Newaction;
-    public struct MoveActions
+    // Ground
+    private readonly InputActionMap m_Ground;
+    private List<IGroundActions> m_GroundActionsCallbackInterfaces = new List<IGroundActions>();
+    private readonly InputAction m_Ground_Move;
+    private readonly InputAction m_Ground_Jump;
+    public struct GroundActions
     {
         private @PlayerControls m_Wrapper;
-        public MoveActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Move_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Move; }
+        public GroundActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Move => m_Wrapper.m_Ground_Move;
+        public InputAction @Jump => m_Wrapper.m_Ground_Jump;
+        public InputActionMap Get() { return m_Wrapper.m_Ground; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MoveActions set) { return set.Get(); }
-        public void AddCallbacks(IMoveActions instance)
+        public static implicit operator InputActionMap(GroundActions set) { return set.Get(); }
+        public void AddCallbacks(IGroundActions instance)
         {
-            if (instance == null || m_Wrapper.m_MoveActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MoveActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            if (instance == null || m_Wrapper.m_GroundActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GroundActionsCallbackInterfaces.Add(instance);
+            @Move.started += instance.OnMove;
+            @Move.performed += instance.OnMove;
+            @Move.canceled += instance.OnMove;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
-        private void UnregisterCallbacks(IMoveActions instance)
+        private void UnregisterCallbacks(IGroundActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @Move.started -= instance.OnMove;
+            @Move.performed -= instance.OnMove;
+            @Move.canceled -= instance.OnMove;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
-        public void RemoveCallbacks(IMoveActions instance)
+        public void RemoveCallbacks(IGroundActions instance)
         {
-            if (m_Wrapper.m_MoveActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_GroundActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IMoveActions instance)
+        public void SetCallbacks(IGroundActions instance)
         {
-            foreach (var item in m_Wrapper.m_MoveActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_GroundActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_MoveActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_GroundActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public MoveActions @Move => new MoveActions(this);
-    public interface IMoveActions
+    public GroundActions @Ground => new GroundActions(this);
+    public interface IGroundActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
