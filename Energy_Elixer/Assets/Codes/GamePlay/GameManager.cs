@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     }
 
     public void Restart(){
+        isGameOver = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 }

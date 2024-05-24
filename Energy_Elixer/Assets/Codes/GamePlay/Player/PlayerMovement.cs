@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -29,9 +30,15 @@ public class PlayerMovement : MonoBehaviour
         controls.Ground.Jump.performed += ctx => {Jump ();};
     }
 
+    private void Start(){
+        playerRB = GetComponent<Rigidbody2D>();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (GameManager.isGameOver) return;
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
         animator.SetBool("isGrounded", isGrounded);
         playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
@@ -44,11 +51,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
+        if (GameManager.isGameOver || playerRB == null) return;
         isFacingRight = !isFacingRight;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
 
     void Jump(){
+        if (GameManager.isGameOver || playerRB == null) return; //null check to stop accessing player when the object is destroyed
         if (isGrounded)
             {
                 numberOfJumps = 0;
