@@ -23,6 +23,8 @@ void Start()
         {animator.SetBool("isWindy", isWindy);
     }
 
-
 }
+    public void SwitchOnTurbine(){
+        isWindy = true;
+    }
 }

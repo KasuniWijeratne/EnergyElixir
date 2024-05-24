@@ -28,10 +28,6 @@ public class PlayerMovement : MonoBehaviour
             };
 
         controls.Ground.Jump.performed += ctx => {Jump ();};
-
-        controls.Ground.Interact.performed += ctx => {
-            WindTurbine.isWindy = true;
-            };
     }
 
     private void Start(){
