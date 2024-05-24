@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Animator animator;
     public float speed = 400;
     bool isFacingRight = true;
-    public float jumpForce = 5;
+    public float jumpForce = 7;
     bool isGrounded;
     int numberOfJumps = 0;
 
@@ -28,10 +28,29 @@ public class PlayerMovement : MonoBehaviour
             };
 
         controls.Ground.Jump.performed += ctx => {Jump ();};
+
+        controls.Ground.Interact.performed += ctx => {
+            WindTurbine.isWindy = true;
+            };
     }
 
     private void Start(){
         playerRB = GetComponent<Rigidbody2D>();
+
+        if (playerRB == null)
+        {
+            Debug.LogError("Rigidbody2D component is not assigned.");
+        }
+
+        if (animator == null)
+        {
+            Debug.LogError("Animator component is not assigned in the Inspector.");
+        }
+
+        if (groundCheck == null)
+        {
+            Debug.LogError("GroundCheck Transform is not assigned in the Inspector.");
+        }
     }
 
     // Update is called once per frame

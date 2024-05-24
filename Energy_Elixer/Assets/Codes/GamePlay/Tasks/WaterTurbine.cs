@@ -12,10 +12,17 @@ public class WaterTurbine : MonoBehaviour
     int hitCount = 0;
 
     // Update is called once per frame
+
+    void Start()
+    {
+        if (animator == null)
+        {
+            Debug.LogError("Animator component is not assigned in the Inspector in water turbine.");
+        }
+    }
     void FixedUpdate()
     {
         animator.SetBool("isRaining", isRaining);
-        Debug.Log(isRaining);
 
         if (isRaining && Time.time - ParticleCollisionStartTime >= ParticleNoCollideTime)
         {
@@ -27,7 +34,6 @@ public class WaterTurbine : MonoBehaviour
     {
         hitCount++;
         ParticleCollisionStartTime = Time.time;
-        Debug.Log("Raining");
         if(hitCount > 200)
             isRaining = true;
     }
