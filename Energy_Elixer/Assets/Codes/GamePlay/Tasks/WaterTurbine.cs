@@ -9,6 +9,8 @@ public class WaterTurbine : MonoBehaviour
 
     private float ParticleCollisionStartTime;
     private float ParticleNoCollideTime = 0.2f;
+
+    private bool pointsIncreased = false;
     int hitCount = 0;
 
     // Update is called once per frame
@@ -35,7 +37,14 @@ public class WaterTurbine : MonoBehaviour
         hitCount++;
         ParticleCollisionStartTime = Time.time;
         if(hitCount > 200)
-            isRaining = true;
+            {
+                isRaining = true;
+                if(!pointsIncreased)
+                {
+                    GameManager.score += 20;
+                    pointsIncreased = true;
+                }
+            }
     }
 
 }

@@ -26,5 +26,6 @@ void Start()
 }
     public void SwitchOnTurbine(){
         isWindy = true;
+        GameManager.score += 12;
     }
 }
