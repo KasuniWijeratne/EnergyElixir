@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class WaterTurbine : MonoBehaviour
 {
-    bool isRaining;
+    public static bool isRaining;
     public Animator animator;
+    private Notifications notification;
 
     private float ParticleCollisionStartTime;
     private float ParticleNoCollideTime = 0.2f;
@@ -21,7 +22,14 @@ public class WaterTurbine : MonoBehaviour
         {
             Debug.LogError("Animator component is not assigned in the Inspector in water turbine.");
         }
+
+        notification = FindObjectOfType<Notifications>();
+        if (notification == null)
+        {
+            Debug.LogError("No Notifications object found in the scene.");
+        }
     }
+
     void FixedUpdate()
     {
         animator.SetBool("isRaining", isRaining);
@@ -36,15 +44,19 @@ public class WaterTurbine : MonoBehaviour
     {
         hitCount++;
         ParticleCollisionStartTime = Time.time;
-        if(hitCount > 200)
-            {
-                isRaining = true;
-                if(!pointsIncreased)
-                {
-                    GameManager.score += 20;
-                    pointsIncreased = true;
-                }
-            }
-    }
+        if (hitCount > 200)
+        {
+            isRaining = true;
 
+            if (!pointsIncreased)
+            {
+                if (notification != null)
+                {
+                    notification.getNotificationMessage("HydroPower", isRaining);
+                }
+                GameManager.score += 20;
+                pointsIncreased = true;
+            }
+        }
+    }
 }
