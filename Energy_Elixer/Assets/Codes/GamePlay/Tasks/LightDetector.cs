@@ -11,7 +11,7 @@ public class LightDetector : MonoBehaviour
     public int hitThreshold = 50;
     private int hitCount = 0;
     private bool pointsIncreased = false;
-    private bool isBlocked = true;
+    public static bool isBlocked = true;
 
     // Start is called before the first frame update
     void Start()
