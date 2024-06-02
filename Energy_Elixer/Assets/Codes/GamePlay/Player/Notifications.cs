@@ -15,7 +15,9 @@ public class Notifications : MonoBehaviour
             "The rain is being wasted. Get the cloud above the turbine to generate some hydro power"
         },
         { "OnWindTurbine", "The wind turbine is now on. You are generating 12kW per hour" },
-        { "OffWindTurbine", "The wind turbine is off. Please switch it on by pressing Enter" }
+        { "OffWindTurbine", "The wind turbine is off. Please switch it on by pressing Enter" },
+        { "OnSolarPanel" , "The Solar Panel is now on. You are generating 10kW per hour."},
+        { "OffSolarPanel" , "The cloud is blocking the solar panel again!"}
     };
 
     public void sendNotification(string key)
@@ -49,7 +51,17 @@ public class Notifications : MonoBehaviour
         else if (tag == "HydroPower" && trigger && WaterTurbine.isRaining)
         {
             message = "OnWaterTurbine";
-        }else{
+        }
+        else if (tag == "SolarPower" && trigger)
+        {
+            message = "OnSolarPanel";
+        }
+        else if (tag == "SolarPower" && !trigger)
+        {
+            message = "OffSolarPanel";
+        }
+        else
+        {
             message = "empty";
         }
         sendNotification(message);
