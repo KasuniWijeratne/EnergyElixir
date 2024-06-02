@@ -50,7 +50,7 @@ public class LightDetector : MonoBehaviour
                 isBlocked = true;
                 if (notification != null)
                 {
-                    notification.getNotificationMessage("SolarPower", !isBlocked);
+                    notification.getNotificationMessage("SolarPower", isBlocked);
                 }
                 pointsIncreased = false ;
                 GameManager.score -= 10;

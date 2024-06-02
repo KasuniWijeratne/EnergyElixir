@@ -50,9 +50,10 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        notification.getNotificationMessage("empty");
+        
         if (collision.tag == "Player")
         {
+            notification.getNotificationMessage("empty");
             isInRange = false;
         }
     }

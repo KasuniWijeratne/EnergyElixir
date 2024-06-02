@@ -16,6 +16,10 @@ public class GameEnvManager : MonoBehaviour
     private int prevGameCondition;
 
     public float transitionDuration = 2f;
+
+    void Awake(){
+        PlayerManager.Instance.OnPlayerEnvironmentChanged += OnPlayerEnvironmentChanged;
+    }
     void Start()
     {
         
@@ -30,6 +34,11 @@ public class GameEnvManager : MonoBehaviour
             updateEnvirontment();
             prevGameCondition = gameCondition;
         }
+    }
+
+    private void OnPlayerEnvironmentChanged(object sender, int e)
+    {
+        gameCondition =  e;
     }
 
     private void SetInitialEnv(GameObject initialEnv){
