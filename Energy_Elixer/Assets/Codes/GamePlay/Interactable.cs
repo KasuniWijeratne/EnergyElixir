@@ -68,15 +68,18 @@ public class Interactable : MonoBehaviour
             else if (collision.attachedRigidbody.name == "HydroPower")
             {
                 notification.getNotificationMessage("HydroPower", isInRange);
-            }else if (collision.attachedRigidbody.name == "solar_panel")
+            }
+            else if (collision.attachedRigidbody.name == "solar_panel")
             {
                 notification.getNotificationMessage("SolarPower", isInRange);
-            }else if (collision.attachedRigidbody.name == "biomass")
+            }
+            else if (collision.attachedRigidbody.name == "biomass")
             {
                 notification.getNotificationMessage("BioMassPower", isInRange);
-                }
-            else{
-                Debug.Log(collision.attachedRigidbody.name);
+            }
+            else
+            {
+                // Debug.Log(collision.attachedRigidbody.name);
             }
         }
         catch (System.NullReferenceException e)

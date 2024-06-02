@@ -81,7 +81,6 @@ public class ParallaxBG1 : MonoBehaviour
 
     private void ChangeBackground(GameObject newMiddleBG, GameObject newSideBG)
     {
-        Debug.Log("Changing background");
         StartCoroutine(SwitchBackground(newMiddleBG, newSideBG));
     }
 
@@ -119,8 +118,6 @@ public class ParallaxBG1 : MonoBehaviour
         currentMiddleBG = newMiddleBG;
         currentSideBG = newSideBG;
 
-        // yield return StartCoroutine(FadeInBackground(currentMiddleBG));
-        // yield return StartCoroutine(FadeInBackground(currentSideBG));
     }
 
     private IEnumerator FadeOutBackground(GameObject bg)
@@ -147,7 +144,6 @@ public class ParallaxBG1 : MonoBehaviour
 
     private IEnumerator FadeInBackground(GameObject bg)
     {
-        Debug.Log("Fading in background");
         float elapsedTime = 0f;
         Renderer[] renderers = bg.GetComponentsInChildren<Renderer>();
         while (elapsedTime < trasitionDuration)
