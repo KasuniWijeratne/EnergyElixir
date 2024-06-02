@@ -16,15 +16,19 @@ public class Notifications : MonoBehaviour
         },
         { "OnWindTurbine", "The wind turbine is now on. You are generating 12kW per hour" },
         { "OffWindTurbine", "The wind turbine is off. Please switch it on by pressing Enter" },
-        { "OnSolarPanel" , "The Solar Panel is now on. You are generating 10kW per hour."},
-        { "OffSolarPanel" , "The cloud is blocking the solar panel again!"}
+        { "OnSolarPanel", "The Solar Panel is now on. You are generating 10kW per hour." },
+        {
+            "OffSolarPanel",
+            "The cloud is blocking the solar panel again! Push away the cloud to generate power."
+        },
+        { "OnBioMass", "The BioMass plant is now on. You are generating 8kW per hour." },
+        { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" }
     };
 
     public void sendNotification(string key)
     {
         if (notificationsList.ContainsKey(key))
         {
-            Debug.Log(notificationsList[key]);
             notificationText.text = notificationsList[key];
         }
         else
@@ -52,13 +56,21 @@ public class Notifications : MonoBehaviour
         {
             message = "OnWaterTurbine";
         }
-        else if (tag == "SolarPower" && trigger)
+        else if (tag == "SolarPower" && trigger && LightDetector.isBlocked)
+        {
+            message = "OffSolarPanel";
+        }
+        else if (tag == "SolarPower" && trigger && !LightDetector.isBlocked)
         {
             message = "OnSolarPanel";
         }
-        else if (tag == "SolarPower" && !trigger)
+        else if (tag == "BioMassPower" && trigger && !BioMassTask.BioMassTaskComplete)
         {
-            message = "OffSolarPanel";
+            message = "OffBioMass";
+        }
+        else if (tag == "BioMassPower" && trigger && BioMassTask.BioMassTaskComplete)
+        {
+            message = "OnBioMass";
         }
         else
         {

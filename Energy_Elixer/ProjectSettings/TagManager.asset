@@ -9,6 +9,8 @@ TagManager:
   - Die
   - WindTurbine
   - SunRays
+  - Leaves
+  - Biomass factory
   layers:
   - Default
   - TransparentFX
