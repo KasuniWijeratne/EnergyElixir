@@ -50,10 +50,11 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
+        
         if (collision.tag == "Player")
         {
-            isInRange = false;
             notification.getNotificationMessage("empty");
+            isInRange = false;
         }
     }
 
@@ -68,6 +69,18 @@ public class Interactable : MonoBehaviour
             else if (collision.attachedRigidbody.name == "HydroPower")
             {
                 notification.getNotificationMessage("HydroPower", isInRange);
+            }
+            else if (collision.attachedRigidbody.name == "solar_panel")
+            {
+                notification.getNotificationMessage("SolarPower", isInRange);
+            }
+            else if (collision.attachedRigidbody.name == "biomass")
+            {
+                notification.getNotificationMessage("BioMassPower", isInRange);
+            }
+            else
+            {
+                // Debug.Log(collision.attachedRigidbody.name);
             }
         }
         catch (System.NullReferenceException e)

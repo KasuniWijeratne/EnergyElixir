@@ -8,11 +8,14 @@ TagManager:
   - Rain
   - Die
   - WindTurbine
+  - SunRays
+  - Leaves
+  - Biomass factory
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Background
   - Water
   - UI
   - 
@@ -23,8 +26,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Task
+  - Player
   - 
   - 
   - 
