@@ -50,7 +50,6 @@ public class Interactable : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        
         if (collision.tag == "Player")
         {
             notification.getNotificationMessage("empty");
@@ -77,6 +76,10 @@ public class Interactable : MonoBehaviour
             else if (collision.attachedRigidbody.name == "biomass")
             {
                 notification.getNotificationMessage("BioMassPower", isInRange);
+            }
+            else if (collision.attachedRigidbody.name == "home")
+            {
+                notification.getNotificationMessage("NaturalLight", isInRange);
             }
             else
             {
