@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class GameEnvManager : MonoBehaviour
 {
+    public GameObject worseEnv;
     public GameObject badEnv;
     public GameObject goodEnv;
+    public GameObject bestEnv;
     private GameObject currentEnvironment;
 
     public ParallaxBG1 parallaxBG1;
@@ -17,7 +19,8 @@ public class GameEnvManager : MonoBehaviour
     void Start()
     {
         
-         updateEnvirontment();
+        SetInitialEnv(goodEnv);
+        prevGameCondition = gameCondition;
     }
 
     // Update is called once per frame
@@ -29,15 +32,28 @@ public class GameEnvManager : MonoBehaviour
         }
     }
 
+    private void SetInitialEnv(GameObject initialEnv){
+        if(initialEnv != null){
+            initialEnv.SetActive(true);
+            currentEnvironment = initialEnv;
+        }
+    }
+
     void updateEnvirontment()
     {
        switch (gameCondition)
         {
             case 1:
-                StartCoroutine(Transition(badEnv));
+                StartCoroutine(Transition(worseEnv));
                 break;
             case 2:
+                StartCoroutine(Transition(badEnv));
+                break;
+            case 3:
                 StartCoroutine(Transition(goodEnv));
+                break;
+            case 4:
+                StartCoroutine(Transition(bestEnv));
                 break;
             default:
                 break;
@@ -45,23 +61,19 @@ public class GameEnvManager : MonoBehaviour
         
     }
 
-    private IEnumerator Transition(GameObject to)
+    private IEnumerator Transition(GameObject targetEnv)
     {
-        if(to == currentEnvironment)
+        targetEnv.SetActive(true);
+        if(targetEnv == currentEnvironment)
         {
             yield break;
         }
         if (currentEnvironment != null)
         {
-            StartCoroutine(FadeOutEnvironment(currentEnvironment));
+            yield return StartCoroutine(FadeInEnvironment(targetEnv));
+            yield return StartCoroutine(FadeOutEnvironment(currentEnvironment));
         }
-
-        if (to != null){
-            to.SetActive(true);
-            StartCoroutine(FadeInEnvironment(to));
-        }
-
-        currentEnvironment = to;
+        currentEnvironment = targetEnv;
 
     }
 
