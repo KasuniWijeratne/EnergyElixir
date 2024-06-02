@@ -17,7 +17,9 @@ public class Notifications : MonoBehaviour
         { "OnWindTurbine", "The wind turbine is now on. You are generating 12kW per hour" },
         { "OffWindTurbine", "The wind turbine is off. Please switch it on by pressing Enter" },
         { "OnSolarPanel" , "The Solar Panel is now on. You are generating 10kW per hour."},
-        { "OffSolarPanel" , "The cloud is blocking the solar panel again!"}
+        { "OffSolarPanel" , "The cloud is blocking the solar panel again!"},
+        { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
+        { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" }
     };
 
     public void sendNotification(string key)
@@ -59,6 +61,14 @@ public class Notifications : MonoBehaviour
         else if (tag == "SolarPower" && !trigger)
         {
             message = "OffSolarPanel";
+        }
+        else if (tag == "StreetLamps" && trigger)
+        {
+            message = "OnStreetLamps";
+        }
+        else if (tag == "StreetLamps" && !trigger)
+        {
+            message = "OffStreetLamps";
         }
         else
         {
