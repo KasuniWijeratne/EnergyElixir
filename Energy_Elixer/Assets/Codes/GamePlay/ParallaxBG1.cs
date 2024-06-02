@@ -1,15 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ParallaxBG1 : MonoBehaviour
 {
     public Transform mainCam;
-    public Transform middleBG;
-    public Transform sideBG;
-    public float length = 28f;
+    private Transform middleBG;
+    private Transform sideBG;
 
+    public GameObject bestMiddleBG;
+    public GameObject bestSideBG;
+    public GameObject goodMiddleBG;
+    public GameObject goodSideBG;
+    public GameObject badMiddleBG;
+    public GameObject badSideBG;
+    public GameObject worstMiddleBG;
+    public GameObject worstSideBG;
+
+    private GameEnvManager gameEnvManager;
+
+    private GameObject currentMiddleBG;
+    private GameObject currentSideBG;
+    public float length = 28f;
+    public float trasitionDuration = 1f;
+
+    private int currentGameCondition;
+
+
+    void Start()
+    {
+        gameEnvManager = FindObjectOfType<GameEnvManager>();
+        if (gameEnvManager == null)
+        {
+            Debug.LogError("GameEnvManager not found in the scene.");
+        }
+
+        SetInitialBackgrounds(goodMiddleBG, goodSideBG);
+
+    }
     // Update is called once per frame
     void Update()
     {

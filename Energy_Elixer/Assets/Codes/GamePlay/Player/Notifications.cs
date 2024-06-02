@@ -60,6 +60,14 @@ public class Notifications : MonoBehaviour
         {
             message = "OffStreetLamps";
         }
+        else if (tag == "StreetLamps" && trigger)
+        {
+            message = "OnStreetLamps";
+        }
+        else if (tag == "StreetLamps" && !trigger)
+        {
+            message = "OffStreetLamps";
+        }
         else
         {
             message = "empty";
