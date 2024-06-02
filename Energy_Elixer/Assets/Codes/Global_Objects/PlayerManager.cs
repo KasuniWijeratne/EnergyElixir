@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     public UserProfile userProfile;
     private string playerId;
     private bool isPlayerQuestionnaireCompleted;
-
+    public event EventHandler<int> OnPlayerEnvironmentChanged;
 
     public event System.Action OnPlayerProfileLoaded;
 
@@ -47,6 +48,8 @@ public class PlayerManager : MonoBehaviour
         else if (instance != this) {
             Destroy(gameObject);
         }
+
+        StartCoroutine(ChangeEnvironmentStatusAsync());
     }
 
     public static PlayerManager Instance {
@@ -103,5 +106,33 @@ public class PlayerManager : MonoBehaviour
     private void OnFailedProfileFetched(string errorMsg) {
         Debug.Log(errorMsg);
     }
+
+
+    public void TriggerPlayerEnvironmentChanged(int environmentStatus) {
+        if(OnPlayerEnvironmentChanged != null)
+            OnPlayerEnvironmentChanged?.Invoke(this, environmentStatus);
+        else
+            Debug.Log("No subscribers to the event");
+    }
+
+    private IEnumerator ChangeEnvironmentStatusAsync()
+    {
+        int environmentStatus = 0;
+        while (true)
+        {
+            // Generate a random environment status
+            // int environmentStatus = UnityEngine.Random.Range(0, 3);
+            environmentStatus = (environmentStatus + 1) % 4 +1;
+
+            // Trigger the player environment changed event
+            TriggerPlayerEnvironmentChanged(environmentStatus);
+
+            // Wait for a random time interval between 1 and 5 seconds
+            // float waitTime = UnityEngine.Random.Range(1f, 5f);
+            float waitTime = 5f;
+            yield return new WaitForSeconds(waitTime);
+        }
+    }
+
 
 }

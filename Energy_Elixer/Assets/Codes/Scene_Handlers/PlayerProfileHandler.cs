@@ -32,9 +32,7 @@ public class PlayerProfileHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            userProfile = PlayerManager.Instance.GetUserProfile();
-        
-        
+        userProfile = PlayerManager.Instance.GetUserProfile();
         SetText();
 
     }
