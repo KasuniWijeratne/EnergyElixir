@@ -22,7 +22,7 @@ public class Notifications : MonoBehaviour
             "The cloud is blocking the solar panel again! Push away the cloud to generate power."
         },
         { "OnBioMass", "The BioMass plant is now on. You are generating 8kW per hour." },
-        { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" }
+        { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" },
         { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
         { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" }
     };
@@ -63,8 +63,8 @@ public class Notifications : MonoBehaviour
             message = "OffSolarPanel";
         }
         else if (tag == "SolarPower" && trigger && !LightDetector.isBlocked)
-        { 
-            message = "OnSolarPanel"
+        {
+            message = "OnSolarPanel";
         }
         else if (tag == "StreetLamps" && trigger)
         {
