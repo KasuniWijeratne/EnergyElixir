@@ -35,13 +35,9 @@ public class GameEnvManager : MonoBehaviour
         {
             case 1:
                 StartCoroutine(Transition(badEnv));
-                // parallaxBG1.ChangeBackground(badMiddleBG, badSideBG);
-                Debug.Log("bad env change is happening");
                 break;
             case 2:
                 StartCoroutine(Transition(goodEnv));
-                // parallaxBG1.ChangeBackground(goodMiddleBG, goodSideBG);
-                Debug.Log("good env change is happening");
                 break;
             default:
                 break;
