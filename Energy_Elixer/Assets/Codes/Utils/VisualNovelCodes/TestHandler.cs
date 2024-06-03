@@ -7,7 +7,7 @@ public class TestHandler : MonoBehaviour
 {    
     [SerializeField] VisualNovelHandler visualNovelHandler;
 
-    private int testInt = 0;
+    // private int testInt = 0;
 
     void Awake()
     {
