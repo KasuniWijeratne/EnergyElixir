@@ -55,7 +55,7 @@ public class Interactable : MonoBehaviour
         {
             notification.getNotificationMessage("empty");
             isInRange = false;
-        }
+        } 
     }
 
     void triggerNotification(Collider2D collision)
