@@ -62,7 +62,7 @@ public class SoundManager : MonoBehaviour
 
     void Start()
     {
-        PlayMusic("main_menu");
+        PlayMusic("map");
     }
 
 }

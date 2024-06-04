@@ -78,12 +78,12 @@ public class DatabaseHandler : MonoBehaviour
             return true;
         }
         // Optionally add more complex checks here
-        return false;
+        return true; // change this
     }
 
     private void HandlePlayerInfoError(string error) {
         Debug.Log("Error fetching profile: " + error);
-        PlayerManager.Instance.IsPlayerQuestionnaireCompleted = false;
+        PlayerManager.Instance.IsPlayerQuestionnaireCompleted = true; // For testing purposes
         OnPlayerInfoRetrived?.Invoke();
     }
 

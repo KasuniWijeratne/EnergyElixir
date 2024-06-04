@@ -24,7 +24,7 @@ public class BulbyInteraction : MonoBehaviour
     void Start()
     {
         dialogueBox.enabled = false;
-
+        SoundManager.Instance.PlayMusic("platformer");
     }
 
     void Update()

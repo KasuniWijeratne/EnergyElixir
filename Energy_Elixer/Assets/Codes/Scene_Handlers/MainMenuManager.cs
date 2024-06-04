@@ -23,6 +23,7 @@ public class MainMenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Instance.PlayMusic("main_menu");
         Debug.Log(PlayerManager.Instance.IsPlayerProfileCompleted);
         if (PlayerManager.Instance.IsPlayerProfileCompleted) {
             pnlActiveGame.SetActive(true);

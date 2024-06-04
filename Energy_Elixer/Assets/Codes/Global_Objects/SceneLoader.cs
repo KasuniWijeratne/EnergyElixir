@@ -24,7 +24,7 @@ public class SceneLoader : MonoBehaviour {
         "Assets/Scenes/Game Env/GameEnv1.unity", // level 1
         "Assets/Scenes/Game Env/GameEnv2.unity" // level 2
         };
-    private string mapScenePath = "Assets/Scenes/MapScene.unity";
+    private string mapScenePath = "Assets/Scenes/Map.unity";
     
 
 
@@ -51,14 +51,14 @@ public class SceneLoader : MonoBehaviour {
             mainMenuScenePath = AssetDatabase.GetAssetPath(mainMenuSceneAsset);
         if (playerProfileSceneAsset != null)
             playerProfileScenePath = AssetDatabase.GetAssetPath(playerProfileSceneAsset);
-        if(gameSceneAsset != null)
-        {
-            gameScenePaths = new string[gameSceneAsset.Length];
-            for (int i = 0; i < gameSceneAsset.Length; i++)
-            {
-                gameScenePaths[i] = AssetDatabase.GetAssetPath(gameSceneAsset[i]);
-            }
-        }
+        // if(gameSceneAsset != null)
+        // {
+        //     gameScenePaths = new string[gameSceneAsset.Length];
+        //     for (int i = 0; i < gameSceneAsset.Length; i++)
+        //     {
+        //         gameScenePaths[i] = AssetDatabase.GetAssetPath(gameSceneAsset[i]);
+        //     }
+        // }
 
 #endif
     }
@@ -73,8 +73,12 @@ public class SceneLoader : MonoBehaviour {
     public static SceneLoader Instance {
         get {
             if (instance == null) {
-                // Optionally log error or create a new GameObject with SceneLoader
-                Debug.LogError("SceneLoader is not instantiated yet.");
+                instance = FindObjectOfType<SceneLoader>();
+                if (instance == null) {
+                    GameObject sceneLoaderObj = new GameObject("SceneManager");
+                    instance = sceneLoaderObj.AddComponent<SceneLoader>();
+                }
+                
             }
             return instance;
         }

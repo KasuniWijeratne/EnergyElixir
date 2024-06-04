@@ -572,7 +572,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.02
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -995,10 +995,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4c6f4316b86334540b4d0b426e211a7e, type: 3}
   - name: task_done
     clip: {fileID: 8300000, guid: f9c135f5b47864548a3c15af73918116, type: 3}
-  - name: button_click
-    clip: {fileID: 0}
+  - name: button_clicked
+    clip: {fileID: 8300000, guid: cd55a92ef167d824b8d8d75e02dd20b3, type: 3}
   - name: Notification
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 85b73d2e43e888a4a8ec3503bb400740, type: 3}
   - name: button_click
     clip: {fileID: 0}
   - name: verify
@@ -1052,7 +1052,10 @@ MonoBehaviour:
   startGameSceneAsset: {fileID: 102900000, guid: 41f2bee35aa811a48bbd8aa6bf7b011d, type: 3}
   mainMenuSceneAsset: {fileID: 102900000, guid: 10ef838f0910acd4a88212afd87e28fa, type: 3}
   playerProfileSceneAsset: {fileID: 102900000, guid: bb7944e04056b3c4880208c537e0fb0d, type: 3}
-  gameSceneAsset: {fileID: 102900000, guid: 5326d30810f1b6e469e03c75560834d9, type: 3}
+  gameSceneAsset:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1203977492
 GameObject:
   m_ObjectHideFlags: 0
