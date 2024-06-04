@@ -22,8 +22,8 @@
 21,Return,17,24,1,1_back,_,_,_
 22,Return,17,25,3,3_back,_,_,_
 23,Return,17,26,2,2_back,_,_,_
-24,Dialogue,20,25,Bulby,Best choice! Doing laundry during off-peak hours saves money and helps balance the power grid.,_,_,Bulby_main
-25,Dialogue,24,26,Bulby,You chose to do laundry during peak hours. This will cost more and put extra strain on the power grid.,_,_,Bulby_sad
+24,Dialogue,20,27,Bulby,Best choice! Doing laundry during off-peak hours saves money and helps balance the power grid.,_,_,Bulby_main
+25,Dialogue,24,27,Bulby,You chose to do laundry during peak hours. This will cost more and put extra strain on the power grid.,_,_,Bulby_sad
 26,Dialogue,25,27,Bulby,Good choice! Avoiding a high peak time has saved you money!,_,_,Bulby_Happy
 27,Background,26,28,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/IronTable,_,_,_
 28,Dialogue,27,29,Bulby,"Let’s move on to ironing clothes. How should you do that?",_,_,_
@@ -33,8 +33,8 @@
 32,Return,28,35,1,1_back,_,_,_
 33,Return,28,36,2,2_back,_,_,_
 34,Return,28,37,3,3_back,_,_,_
-35,Dialogue,31,36,Bulby,Great choice! Ironing all your clothes at once during an off-peak time saves both time and energy. You’ll see lower costs on your electricity bill and help reduce the strain on the power grid.,_,_,Bulby_Happy
-36,Dialogue,35,37,Bulby,Ironing all your clothes at once is efficient but doing it during peak hours is not ideal. It will cost more due to higher electricity rates and adds extra strain to the power grid.,_,_,Bulby_main
+35,Dialogue,31,38,Bulby,Great choice! Ironing all your clothes at once during an off-peak time saves both time and energy. You’ll see lower costs on your electricity bill and help reduce the strain on the power grid.,_,_,Bulby_Happy
+36,Dialogue,35,38,Bulby,Ironing all your clothes at once is efficient but doing it during peak hours is not ideal. It will cost more due to higher electricity rates and adds extra strain to the power grid.,_,_,Bulby_main
 37,Dialogue,36,38,Bulby,Ironing clothes every day might seem convenient but it’s actually the least energy-efficient option. Each session uses extra power and doing it during peak hours will cost more and increase the grid's load.,_,_,Bulby_sad
 38,Background,37,39,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Vaccum,_,_,_
 39,Dialogue,38,40,Bulby,The vacuum consumes a lot of energy. Why is that happening?,_,_,_
@@ -46,9 +46,9 @@
 45,Return,39,49,1,1_back,_,_,_
 46,Return,39,50,2,2_back,_,_,_
 47,Return,39,51,3,3_back,_,_,_
-48,Dialogue,43,49,Bulby,Not quite. Vacuuming quickly might seem like it saves time but it often results in poor cleaning efficiency requiring multiple passes over the same area.,_,_,Bulby_sad
-49,Dialogue,48,50,Bulby,Correct! Regularly cleaning or replacing the filters ensures the vacuum operates at optimal efficiency reducing energy consumption.,_,_,Bulby_Happy
-50,Dialogue,49,51,Bulby,Not exactly. Using the right attachments for different surfaces actually helps the vacuum clean more effectively which can save energy.,_,_,Bulby_main
+48,Dialogue,43,52,Bulby,Not quite. Vacuuming quickly might seem like it saves time but it often results in poor cleaning efficiency requiring multiple passes over the same area.,_,_,Bulby_sad
+49,Dialogue,48,52,Bulby,Correct! Regularly cleaning or replacing the filters ensures the vacuum operates at optimal efficiency reducing energy consumption.,_,_,Bulby_Happy
+50,Dialogue,49,52,Bulby,Not exactly. Using the right attachments for different surfaces actually helps the vacuum clean more effectively which can save energy.,_,_,Bulby_main
 51,Dialogue,50,52,Bulby,No. that’s not the best choice. Using the vacuum during off-peak hours can help save on electricity costs and reduce strain on the power grid.,_,_,Bulby_sad
 52,Background,51,53,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Bulb,_,_,_
 53,Dialogue,52,54,Bulby,What’s the best way to save energy with our home lighting?,_,_,_
@@ -58,8 +58,8 @@
 57,Return,53,60,1,1_back,_,_,_
 58,Return,53,61,3,3_back,_,_,_
 59,Return,53,62,3,3_back,_,_,_
-60,Dialogue,56,61,Bulby,Correct! Using LED bulbs uses significantly less energy than incandescent bulbs and turning off lights when not in use further reduces energy consumption.,_,_,Bulby_Happy
-61,Dialogue,60,62,Bulby,Not quite. High-power incandescent lights consume a lot of energy. Switching to LED bulbs is a much more efficient option.,_,_,Bulby_sad
+60,Dialogue,56,63,Bulby,Correct! Using LED bulbs uses significantly less energy than incandescent bulbs and turning off lights when not in use further reduces energy consumption.,_,_,Bulby_Happy
+61,Dialogue,60,63,Bulby,Not quite. High-power incandescent lights consume a lot of energy. Switching to LED bulbs is a much more efficient option.,_,_,Bulby_sad
 62,Dialogue,61,63,Bulby,Not exactly. While low-power incandescent lights use less energy individually using multiple of them still consumes more energy than using LED bulbs.,_,_,Bulby_sad
 63,Background,62,64,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Refrigerator,_,_,_
 64,Dialogue,63,65,Bulby,Our refrigerator consumes much power and I cannot switch it off. What can I do?,_,_,_
@@ -71,7 +71,7 @@
 70,Return,64,74,3,3_back,_,_,_
 71,Return,64,75,3,3_back,_,_,_
 72,Return,64,76,3,3_back,_,_,_
-73,Dialogue,68,74,Bulby,Correct! Tight door seals and avoiding overcrowding help maintain the refrigerator's efficiency reducing energy consumption.,_,_,Bulby_Happy
-74,Dialogue,73,75,Bulby,Leaving the refrigerator door open actually increases energy consumption as it makes the fridge work harder to maintain its temperature.,_,_,Bulby_sad
-75,Dialogue,74,76,Bulby,Keeping the refrigerator at its highest temperature setting can lead to food spoilage and doesn't actually save energy.,_,_,Bulby_sad
+73,Dialogue,68,-2,Bulby,Correct! Tight door seals and avoiding overcrowding help maintain the refrigerator's efficiency reducing energy consumption.,_,_,Bulby_Happy
+74,Dialogue,73,-2,Bulby,Leaving the refrigerator door open actually increases energy consumption as it makes the fridge work harder to maintain its temperature.,_,_,Bulby_sad
+75,Dialogue,74,-2,Bulby,Keeping the refrigerator at its highest temperature setting can lead to food spoilage and doesn't actually save energy.,_,_,Bulby_sad
 76,Dialogue,75,-2,Bulby,Putting hot items into the refrigerator can raise its internal temperature and cause it to consume more energy to cool down.,_,_,Bulby_sad
