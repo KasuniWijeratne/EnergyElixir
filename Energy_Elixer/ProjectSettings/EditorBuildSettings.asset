@@ -14,6 +14,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Player Profile.unity
     guid: bb7944e04056b3c4880208c537e0fb0d
+  - enabled: 1
+    path: Assets/Scenes/Game Env/GameEnv1.unity
+    guid: 41b20004a1ea82940af6671746824ada
+  - enabled: 1
+    path: Assets/Scenes/Game Env/GameEnv2.unity
+    guid: 417283b6046e4dc4582d380af3efa38c
   - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 5326d30810f1b6e469e03c75560834d9
