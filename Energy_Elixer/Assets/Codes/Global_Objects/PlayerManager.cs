@@ -128,8 +128,8 @@ public class PlayerManager : MonoBehaviour
             TriggerPlayerEnvironmentChanged(environmentStatus);
 
             // Wait for a random time interval between 1 and 5 seconds
-            // float waitTime = UnityEngine.Random.Range(1f, 5f);
-            float waitTime = 5f;
+            float waitTime = UnityEngine.Random.Range(10f, 20f);
+            // float waitTime = 5f;
             yield return new WaitForSeconds(waitTime);
         }
     }

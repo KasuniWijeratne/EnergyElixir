@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart(){
         isGameOver = false;
+        Debug.Log("Restarting Game");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         score = 0;
 
