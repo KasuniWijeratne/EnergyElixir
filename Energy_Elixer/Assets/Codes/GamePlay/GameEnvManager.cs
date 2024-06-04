@@ -10,6 +10,7 @@ public class GameEnvManager : MonoBehaviour
     public GameObject bestEnv;
     private GameObject currentEnvironment;
 
+    public ParallaxBG1 parallaxBG1;
     // Start is called before the first frame update
     public int gameCondition;
     private int prevGameCondition;
