@@ -38,6 +38,7 @@ public class MainMenuManager : MonoBehaviour
     public void OnProfileButtonClicked() {
         SoundManager.Instance.PlaySFX("button_clicked");
         SceneLoader.Instance.LoadPlayerProfileScene();
+        
     }
 
     public void OnQuitBtnClicked() {
@@ -55,7 +56,7 @@ public class MainMenuManager : MonoBehaviour
         bool qnCompleted = PlayerManager.Instance.IsPlayerQuestionnaireCompleted;
 
         if (qnCompleted) {
-            SceneLoader.Instance.LoadGameScene();
+            SceneLoader.Instance.LoadmapScene();
         }
         else {
             pnlMainMenu.SetActive(false);
