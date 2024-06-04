@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BulbyInteraction : MonoBehaviour
@@ -64,37 +65,58 @@ public class BulbyInteraction : MonoBehaviour
 
         IEnumerator TestCoroutineFunction(string parameter)
     {
+        int score = 0;
+        int status = 0;        
         //put any code to run asynchronusly here
         // Debug.Log("Visual Novel returned:" + parameter);
-        int status = int.Parse(parameter);
-        int score = 0;
-
-        switch (status)
+        if (parameter == "~P" || parameter == "~F")
         {
-            case 1:
-                // Debug.Log("right answer");
-                score = 5;
-                break;
-            case 2:
-                // Debug.Log("neutral answer");
-                score = 2;
-                break;
-            case 3:
-                // Debug.Log("Wrong answer");
-                score = -3;
-                break;
-
-            default:
-                // Debug.Log("default case");
-                score = 0;
-                break;
+            // GameManager.score -= previousScore;
+            visualNovelHandler.StopVisualNovel();
+        
         }
+        
+        
+        
+        if(int.TryParse(parameter, out status)){
+            int multiplier = 1;
+            if (parameter.Contains("_back")){
+                multiplier = -1;
+                parameter = parameter.Replace("_back", "");
+            }else {
+                multiplier = 1;
+            }
 
-        GameManager.score -= previousScore;
-        GameManager.score += score;
-        previousScore = score;
+
+                switch (status)
+            {
+                case 1:
+                    // Debug.Log("right answer");
+                    score = 5;
+                    break;
+                case 2:
+                    // Debug.Log("neutral answer");
+                    score = 2;
+                    break;
+                case 3:
+                    // Debug.Log("Wrong answer");
+                    score = -3;
+                    break;
+
+                default:
+                    // Debug.Log("default case");
+                    score = 0;
+                    break;
+            }
+
+            score *= multiplier;
+
+            GameManager.score -= previousScore;
+            GameManager.score += score;
+            previousScore = score;
+        }
         // Debug.Log("\ntestInt: " + testInt);
-        yield return new WaitForSeconds(1f);
+        yield return null;
     }    
 
     // Method to start the coroutine with the parameter
