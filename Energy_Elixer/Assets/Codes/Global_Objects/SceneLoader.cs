@@ -12,7 +12,7 @@ public class SceneLoader : MonoBehaviour {
     [SerializeField] private SceneAsset startGameSceneAsset;
     [SerializeField] private SceneAsset mainMenuSceneAsset;
     [SerializeField] private SceneAsset playerProfileSceneAsset;
-    [SerializeField] private SceneAsset gameSceneAsset;
+    [SerializeField] private SceneAsset[] gameSceneAsset;
     
 #endif
 
@@ -20,7 +20,11 @@ public class SceneLoader : MonoBehaviour {
     private string startGameScenePath = "Assets/Scenes/StartPage.unity";
     private string mainMenuScenePath = "Assets/Scenes/MainMenu.unity";
     private string playerProfileScenePath = "Assets/Scenes/Player Profile.unity";
-    private string gameScenePath = "Assets/Scenes/GameScene.unity";
+    private string[] gameScenePaths = {
+        "Assets/Scenes/Game Env/GameEnv1.unity", // level 1
+        "Assets/Scenes/Game Env/GameEnv2.unity" // level 2
+        };
+    private string mapScenePath = "Assets/Scenes/MapScene.unity";
     
 
 
@@ -48,7 +52,13 @@ public class SceneLoader : MonoBehaviour {
         if (playerProfileSceneAsset != null)
             playerProfileScenePath = AssetDatabase.GetAssetPath(playerProfileSceneAsset);
         if(gameSceneAsset != null)
-            gameScenePath = AssetDatabase.GetAssetPath(gameSceneAsset);
+        {
+            gameScenePaths = new string[gameSceneAsset.Length];
+            for (int i = 0; i < gameSceneAsset.Length; i++)
+            {
+                gameScenePaths[i] = AssetDatabase.GetAssetPath(gameSceneAsset[i]);
+            }
+        }
 
 #endif
     }
@@ -88,7 +98,11 @@ public class SceneLoader : MonoBehaviour {
         SceneManager.LoadScene(playerProfileScenePath);
     }
 
-    public void LoadGameScene() {
-        SceneManager.LoadScene(gameScenePath);
+    public void LoadGameScene(int level) {
+        SceneManager.LoadScene(gameScenePaths[level - 1]);
+    }
+
+    public void LoadmapScene() {
+        SceneManager.LoadScene(mapScenePath);
     }
 }

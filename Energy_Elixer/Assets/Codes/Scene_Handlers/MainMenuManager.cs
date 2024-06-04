@@ -36,15 +36,19 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void OnProfileButtonClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         SceneLoader.Instance.LoadPlayerProfileScene();
+        
     }
 
     public void OnQuitBtnClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         Application.Quit();
     }
 
     public void OnNewGameBtnClicked() {
         //check if the player has completed the questionnaire
+        SoundManager.Instance.PlaySFX("button_clicked");
         DatabaseHandler.Instance.GetPlayerInformation();
     }
 
@@ -52,7 +56,7 @@ public class MainMenuManager : MonoBehaviour
         bool qnCompleted = PlayerManager.Instance.IsPlayerQuestionnaireCompleted;
 
         if (qnCompleted) {
-            SceneLoader.Instance.LoadGameScene();
+            SceneLoader.Instance.LoadmapScene();
         }
         else {
             pnlMainMenu.SetActive(false);
@@ -62,11 +66,13 @@ public class MainMenuManager : MonoBehaviour
 
 
     public void OnLoadGameBtnClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         Debug.Log("Load Game Button Clicked");
         //implement loading of saved game
     }
 
     public void OnRedirectBtnClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         Application.OpenURL("http://localhost:5173/");
     }
 }
