@@ -5,8 +5,11 @@ using UnityEngine;
 public class BulbyInteraction : MonoBehaviour
 {
     private bool playerInRange;
+
+    private int previousScore = 0;
     [SerializeField] int startPoint = 0;
     [SerializeField] VisualNovelHandler visualNovelHandler;
+    [SerializeField] SpriteRenderer dialogueBox;
 
     void Awake()
     {
@@ -19,6 +22,7 @@ public class BulbyInteraction : MonoBehaviour
 
     void Start()
     {
+        dialogueBox.enabled = false;
 
     }
 
@@ -26,6 +30,7 @@ public class BulbyInteraction : MonoBehaviour
     {
         if (playerInRange && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
         {
+            //Stop the player from moving
             visualNovelHandler.StartVisualNovel(startPoint);
         }
     }
@@ -34,7 +39,9 @@ public class BulbyInteraction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //notification.getNotificationMessage("Bulby_Hi", True); // or a DialogueBox over bulby
             Debug.Log("Player in range");
+            dialogueBox.enabled = true;
             playerInRange = true;
         }
     }
@@ -43,7 +50,9 @@ public class BulbyInteraction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            //notification.getNotificationMessage("Bulby_Hi", False); // or a DialogueBox over bulby
             Debug.Log("Player out of range");
+            dialogueBox.enabled = false;
             playerInRange = false;
         }
     }
@@ -56,8 +65,34 @@ public class BulbyInteraction : MonoBehaviour
         IEnumerator TestCoroutineFunction(string parameter)
     {
         //put any code to run asynchronusly here
-        Debug.Log("Visual Novel returned:" + parameter);
-        // testInt += int.Parse(parameter);
+        // Debug.Log("Visual Novel returned:" + parameter);
+        int status = int.Parse(parameter);
+        int score = 0;
+
+        switch (status)
+        {
+            case 1:
+                // Debug.Log("right answer");
+                score = 5;
+                break;
+            case 2:
+                // Debug.Log("neutral answer");
+                score = 2;
+                break;
+            case 3:
+                // Debug.Log("Wrong answer");
+                score = -3;
+                break;
+
+            default:
+                // Debug.Log("default case");
+                score = 0;
+                break;
+        }
+
+        GameManager.score -= previousScore;
+        GameManager.score += score;
+        previousScore = score;
         // Debug.Log("\ntestInt: " + testInt);
         yield return new WaitForSeconds(1f);
     }    
