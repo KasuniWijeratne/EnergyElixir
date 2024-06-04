@@ -47,9 +47,11 @@ public class PlayerProfileHandler : MonoBehaviour
     }
 
     public void OnBackBtnClick() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         SceneLoader.Instance.LoadMainMenuScene();
     }
     public void OnSaveBtnClick() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         UserProfile tempUser = new();
 
 
@@ -71,6 +73,7 @@ public class PlayerProfileHandler : MonoBehaviour
     }
 
     public void OnResetBtnClick() {
+        SoundManager.Instance.PlaySFX("button_clicked");
         SetText();
     }
 

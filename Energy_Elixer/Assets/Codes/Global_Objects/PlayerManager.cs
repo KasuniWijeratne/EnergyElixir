@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private static PlayerManager instance; // Singleton instance
-    private const string baseUrl = "http://";
     public UserProfile userProfile;
     private string playerId;
     private bool isPlayerQuestionnaireCompleted;
@@ -38,12 +37,12 @@ public class PlayerManager : MonoBehaviour
     void Awake() {
         if (instance == null) {
             instance = this;
-            GameObject apiHandlerObj = this.gameObject;
+            GameObject playerManagerObject = this.gameObject;
 
             // Ensure it's a root GameObject
-            apiHandlerObj.transform.parent = null;
+            playerManagerObject.transform.parent = null;
 
-            DontDestroyOnLoad(apiHandlerObj); // Make it persistent across scenes
+            DontDestroyOnLoad(playerManagerObject); // Make it persistent across scenes
         }
         else if (instance != this) {
             Destroy(gameObject);
@@ -111,8 +110,6 @@ public class PlayerManager : MonoBehaviour
     public void TriggerPlayerEnvironmentChanged(int environmentStatus) {
         if(OnPlayerEnvironmentChanged != null)
             OnPlayerEnvironmentChanged?.Invoke(this, environmentStatus);
-        else
-            Debug.Log("No subscribers to the event");
     }
 
     private IEnumerator ChangeEnvironmentStatusAsync()
@@ -128,8 +125,8 @@ public class PlayerManager : MonoBehaviour
             TriggerPlayerEnvironmentChanged(environmentStatus);
 
             // Wait for a random time interval between 1 and 5 seconds
-            // float waitTime = UnityEngine.Random.Range(1f, 5f);
-            float waitTime = 5f;
+            float waitTime = UnityEngine.Random.Range(10f, 50f);
+            // float waitTime = 5f;
             yield return new WaitForSeconds(waitTime);
         }
     }

@@ -36,6 +36,9 @@ public class StartGame_Manager : MonoBehaviour
         // Takes the text from the input field and prints it to the debug log
         /*Debug.Log(inputField.text);*/
         // Calls the Authenticate method from the APIHandler instance
+
+        SoundManager.Instance.PlaySFX("verify");
+
         if(APIHandler.Instance != null) {
             if(inputField.text != "") {
                 StartCoroutine(APIHandler.Instance.Authenticate(
