@@ -8,7 +8,8 @@ public class BackgroundManager : MonoBehaviour
     [SerializeField] Image background; 
 
     public void ChangeBackground(string backgroundName) {
-        background.sprite = Resources.Load<Sprite>("VisualNovel/Backgrounds/" + backgroundName);
+        Sprite temp = Resources.Load<Sprite>(backgroundName);
+        background.sprite = temp;
     }
 
     //remove background

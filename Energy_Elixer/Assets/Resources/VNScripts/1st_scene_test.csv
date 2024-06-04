@@ -18,14 +18,14 @@
 17,Dialogue,16,18,_,you walk to left...,John_scared-right,_,_
 18,Dialogue,17,19,_,...,John_scared-right,_,_
 19,Dialogue,18,5,John,Nothing....,_,_,John_Question
-20,Dialogue,11,21,,you waited 1...  2...  3... minutes,_,_,John_Question
+20,Dialogue,11,21,,you waited 1...   2... 3... minutes,_,_,John_Question
 21,Dialogue,20,22,John,Nothing....,_,_,John_Question
 22,Dialogue,21,23,_,But suddenly...,_,_,John_Question
-23,Background,22,24,enable,Assets/Images/Backgrounds/VN_Backgrounds/Black,_,_,_
+23,Background,22,24,enable,Images/Backgrounds/VN_Backgrounds/Black,_,_,_
 24,Dialogue,23,25,_,Everything goes dark...,_,_,_
 25,Dialogue,24,26,_,You feel like you get sucked into something...,_,_,_
 26,Dialogue,25,27,_,...,_,_,_
-27,Background,26,28,enable,Assets/Images/Backgrounds/VN_Backgrounds/Cave 1.png,_,_,_
+27,Background,26,28,enable,Images/Backgrounds/VN_Backgrounds/Cave 1,_,_,_
 28,Dialogue,27,29,John,Where am I?,_,_,John_Question
 29,Dialogue,28,30,_,A magical sound comes from the sky...,_,_,_
 30,Dialogue,29,31,_,And...,_,_,_
@@ -37,17 +37,17 @@
 36,Dialogue,35,37,Azargoth,And this world is indeed an Anime looking world. (Not that the developers have zero skill in drawing and and they are so broke and they had to find some free assets packs that happened to be Anime),_,_,Wizard-happy-right
 37,Dialogue,36,38,Wizard,Follow me..,John_neutral-left,Wizard-neutral-right,_
 38,Dialogue,37,39,_,...,John_neutral-left,Wizard-neutral-left,_
-39,Background,38,40,enable,Assets/Images/Backgrounds/VN_Backgrounds/Cave 1.png,_,_,_
+39,Background,38,40,enable,Images/Backgrounds/VN_Backgrounds/Cave 1,_,_,_
 40,Dialogue,39,41,_,...,John_neutral-left,Wizard-neutral-left,_
-41,Background,40,42,enable,Assets/Images/Backgrounds/VN_Backgrounds/Cave 1.png,_,_,_
-42,Dialogue,41,43,_,...,John_neutral-left,Wizard-neutral-left,
+41,Background,40,42,enable,Images/Backgrounds/VN_Backgrounds/Lodge 4,_,_,_
+42,Dialogue,41,43,_,...,John_neutral-left,Wizard-neutral-left,_
 43,Dialogue,42,44,_,...,John_neutral-left,Wizard-neutral-left,_
 44,Dialogue,43,45,John,Are we there yet?,John_angry-left,Wizard-neutral-left,_
 45,Dialogue,44,46,Wizard,We will reach our destination for today after we cross that mountain range.,John_angry-left,Wizard-neutral-right,_
 46,Dialogue,45,47,_,...,John_angry-left,Wizard-neutral-left,_
-47,Background,46,48,enable,Assets/Images/Backgrounds/VN_Backgrounds/Cave 1.png,_,_,_
+47,Background,46,48,enable,Images/Backgrounds/VN_Backgrounds/houses,_,_,_
 48,Dialogue,47,49,Wizard,We have reached our destiation. This is a hide out village that the zylnians use these days.,John_neutral-left,Wizard-neutral-right,_
-49,Dialogue,48,50,Wizard,Here Is a map of Whole Zylnia. You'll be able to use it to travel to different locations. when you get  knowledge why you came here...,John_neutral-left,Wizard-neutral-right,_
+49,Dialogue,48,50,Wizard,Here Is a map of Whole Zylnia. You'll be able to use it to travel to different locations when you get  knowledge why you came here...,John_neutral-left,Wizard-neutral-right,_
 50,Dialogue,49,51,John,Why can't you tell it right now?,_,_,John_Question
 51,Dialogue,50,52,Wizard,It's not time for now .let's look at the map and learn the world of Zylnia.,_,Wizard-neutral-right,_
 52,Dialogue,51,-2,_,...,_,_,_

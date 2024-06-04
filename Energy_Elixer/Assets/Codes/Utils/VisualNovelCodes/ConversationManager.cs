@@ -24,7 +24,8 @@ public class ConversationManager : MonoBehaviour
 
 
 
-    public void disableConversationManager() {
+    public void disableConversationManager()
+    {
         UpdateCharacters();
         ChangeConversationStatus(false);
     }
@@ -32,45 +33,41 @@ public class ConversationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
 
-    public void SetNextBtnPushedAction (System.Action action) {
+    public void SetNextBtnPushedAction(System.Action action)
+    {
         onNextBtnPushed = action;
     }
 
-    public void OnNextPushed() {
+    public void OnNextPushed()
+    {
         if (onNextBtnPushed != null)
             onNextBtnPushed?.Invoke();
-        else 
+        else
             throw new System.Exception("onNextBtnPushed is not set. Please set it in parent's awake function before using this class.");
     }
-    public void SetCharacterLocations(Dictionary<string, string> characterL) {
+    public void SetCharacterLocations(Dictionary<string, string> characterL)
+    {
         characterLocations = characterL;
     }
-    private Sprite LoadCharacter(string characterName) {
-        if (characterName == null || characterName == "") return null;
-        string characterLocation = characterLocations[characterName];
-        Sprite characterSprite = Resources.Load<Sprite>(characterLocation);
-        if (characterSprite == null) {
-            throw new System.Exception("Character sprite not found. Please check the character name and the character location in the character location file.");
-        }
-        return characterSprite;
-    }
-    public void UpdateConversation(string characterName, string conversation) {
+    public void UpdateConversation(string characterName, string conversation)
+    {
         TextBox.SetActive(true);
-        if(conversation != null && conversation != "_")
+        if (conversation != null && conversation != "_")
             conversationText.text = conversation;
-        else 
+        else
             conversationText.text = "";
-        if(characterName != null && characterName != "_")
+        if (characterName != null && characterName != "_")
             nameText.text = characterName + ": ";
         else
             nameText.text = "";
     }
 
-    public void ChangeConversationStatus(bool status) {
+    public void ChangeConversationStatus(bool status)
+    {
         TextBox.SetActive(status);
     }
 
@@ -79,14 +76,25 @@ public class ConversationManager : MonoBehaviour
         UpdateCharacter(leftCharacter, leftCharacterImg);
         UpdateCharacter(rightCharacter, rightCharacterImg);
         UpdateCharacter(middleCharacter, middleCharacterImg);
-        void UpdateCharacter(string middleCharacter, Image characterImg)
+    }
+
+    void UpdateCharacter(string characterName, Image characterImg)
+    {
+        if (characterName != null && characterName != "_")
         {
-            if (middleCharacter != null && middleCharacter != "_"){
+            Sprite characterSprite = Resources.Load<Sprite>(characterLocations[characterName]);
+            if (characterSprite != null)
+            {
+                characterImg.sprite = characterSprite;
                 characterImg.enabled = true;
-                characterImg.sprite = LoadCharacter(middleCharacter);
             }
             else
+            {
                 characterImg.enabled = false;
+                throw new System.Exception("Character sprite not found at: " + characterLocations[characterName]);
+            }
         }
+        else
+            characterImg.enabled = false;
     }
 }

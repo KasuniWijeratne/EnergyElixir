@@ -1,39 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class TestHandler : MonoBehaviour
-{    
+public class BulbyInteraction : MonoBehaviour
+{
+    private bool playerInRange;
+    [SerializeField] int startPoint = 0;
     [SerializeField] VisualNovelHandler visualNovelHandler;
-
-    // private int testInt = 0;
 
     void Awake()
     {
         visualNovelHandler.SetReturnDataMethod(ReturnDataVN);
-        // visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/1st_scene_test.csv");
         visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/House_Appliaces.csv");
         visualNovelHandler.SetCharacterLocationFilePath("Assets/Resources/VNScripts/1st_scene_characters.csv");
     }
 
+
+
     void Start()
     {
+
     }
 
-    bool isRunning = false;
-    // Update is called once per frame
     void Update()
     {
-        if(!isRunning){
-            visualNovelHandler.StartVisualNovel();
-            isRunning = true;
+        if (playerInRange && (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)))
+        {
+            visualNovelHandler.StartVisualNovel(startPoint);
         }
     }
 
-    // Define a coroutine method that takes a string parameter
-    //this function is used to process the data came from the visual novel handler asynchronously
-    IEnumerator TestCoroutineFunction(string parameter)
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player in range");
+            playerInRange = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Player out of range");
+            playerInRange = false;
+        }
+    }
+
+    void OnBulbyInteraction()
+    {
+
+    }
+
+        IEnumerator TestCoroutineFunction(string parameter)
     {
         //put any code to run asynchronusly here
         Debug.Log("Visual Novel returned:" + parameter);
@@ -48,5 +68,6 @@ public class TestHandler : MonoBehaviour
     {
         StartCoroutine(TestCoroutineFunction(parameter));
     }
+
 
 }
