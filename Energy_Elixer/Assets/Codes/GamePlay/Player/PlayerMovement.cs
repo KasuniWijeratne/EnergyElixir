@@ -14,23 +14,39 @@ public class PlayerMovement : MonoBehaviour
     bool isFacingRight = true;
     public float jumpForce = 7;
     bool isGrounded;
+    bool isPlayerActive;
     int numberOfJumps = 0;
 
     public Transform groundCheck;
     public LayerMask groundLayer;
 
-    private void Awake()
+    public void SetPlayerActive(bool isActive)
     {
-        controls = new PlayerControls();
-        controls.Enable();
-        controls.Ground.Move.performed += ctx => {
-            direction = ctx.ReadValue<float>();
-            };
-
-        controls.Ground.Jump.performed += ctx => {Jump ();};
+        isPlayerActive = isActive;
     }
 
-    private void Start(){
+    public bool GetPlayerActive()
+    {
+        return isPlayerActive;
+    }
+    private void Awake()
+    {
+        SetPlayerActive(true);
+        controls = new PlayerControls();
+        controls.Enable();
+        controls.Ground.Move.performed += ctx =>
+        {
+            direction = ctx.ReadValue<float>();
+        };
+
+        controls.Ground.Jump.performed += ctx =>
+        {
+            Jump();
+        };
+    }
+
+    private void Start()
+    {
         playerRB = GetComponent<Rigidbody2D>();
 
         if (playerRB == null)
@@ -52,38 +68,47 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GameManager.isGameOver) return;
+        if (GameManager.isGameOver)
+            return;
+        if (isPlayerActive)
+        {
+            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            animator.SetBool("isGrounded", isGrounded);
+            playerRB.velocity = new Vector2(
+                direction * speed * Time.fixedDeltaTime,
+                playerRB.velocity.y
+            );
+            animator.SetFloat("speed", Mathf.Abs(direction));
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        animator.SetBool("isGrounded", isGrounded);
-        playerRB.velocity = new Vector2(direction * speed * Time.fixedDeltaTime, playerRB.velocity.y);
-        animator.SetFloat("speed", Mathf.Abs(direction));
-
-        if (direction > 0 && !isFacingRight || direction < 0 && isFacingRight)
-            Flip();
-
+            if (direction > 0 && !isFacingRight || direction < 0 && isFacingRight)
+                Flip();
+        }
     }
 
     void Flip()
     {
-        if (GameManager.isGameOver || playerRB == null) return;
+        if (GameManager.isGameOver || playerRB == null)
+            return;
         isFacingRight = !isFacingRight;
         transform.localScale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
     }
 
-    void Jump(){
-        if (GameManager.isGameOver || playerRB == null) return; //null check to stop accessing player when the object is destroyed
+    void Jump()
+    {
+        if (GameManager.isGameOver || playerRB == null)
+            return; //null check to stop accessing player when the object is destroyed
         if (isGrounded)
+        {
+            numberOfJumps = 0;
+            playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
+            numberOfJumps++;
+        }
+        else
+        {
+            if (numberOfJumps == 1)
             {
-                numberOfJumps = 0;
                 playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
                 numberOfJumps++;
-            }
-        else{
-            if(numberOfJumps == 1){
-                playerRB.velocity = new Vector2(playerRB.velocity.x, jumpForce);
-                numberOfJumps++;
-                
             }
         }
     }

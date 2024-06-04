@@ -23,8 +23,16 @@ public class Notifications : MonoBehaviour
         },
         { "OnBioMass", "The BioMass plant is now on. You are generating 8kW per hour." },
         { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" },
-        { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
-        { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" }
+        { "OffStreetLamps", "Street light has been turned off. You are saving 1kW every hour!" },
+        { "OnStreetLamps", "Street light has been turned on again. Hit SHIFT" },
+        {
+            "OpenWindow",
+            "Windows are open. You are getting natural light and fresh air! And you are saving 2kW every hour! Way to go!"
+        },
+        {
+            "CloseWindow",
+            "Hit Enter to open the window and to save energy wasted on lights and fans.Natural light and air are the best!"
+        }
     };
 
     public void sendNotification(string key)
@@ -74,7 +82,6 @@ public class Notifications : MonoBehaviour
         {
             message = "OffStreetLamps";
         }
-
         else if (tag == "BioMassPower" && trigger && !BioMassTask.BioMassTaskComplete)
         {
             message = "OffBioMass";
@@ -83,6 +90,13 @@ public class Notifications : MonoBehaviour
         {
             message = "OnBioMass";
         }
+        else if (tag == "NaturalLight" && trigger && NaturalLight.isWindowOpen)
+        {
+            message = "OpenWindow";
+        }
+        else if (tag == "NaturalLight" && trigger && !NaturalLight.isWindowOpen) {
+            message = "CloseWindow";
+         }
         else
         {
             message = "empty";
