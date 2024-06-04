@@ -1,0 +1,53 @@
+0,Background,-1,1,disable,_,_,_,_
+1,Dialogue,0,2,_,You remember you dozed off...,_,_,_
+2,Dialogue,1,3,John ,Where am I?,John_scared-left,_,_
+3,Dialogue,2,4,John ,I can't see anything. Yet it's not dark in here.,_,John_scared-right,_
+4,Dialogue,3,5,John ,There is a light source in the sky but nothing more than that.,_,_,John_Question
+5,Dialogue,4,6,_,What should I do now?,_,_,John_Question
+6,Question,5,9,A,Try to remember what happened?,_,_,_
+7,Question,6,10,A,Look around a bit.,_,_,_
+8,Question,7,11,A,Wait,_,_,_
+9,Return,5,12,Remember,Remember_back,_,_,_
+10,Return,5,15,Look,Look_back,_,_,_
+11,Return,5,20,Wait,Wait_back,_,_,_
+12,Dialogue,9,13,John ,I was in my home... and I wanted to try out this demand management app...,_,_,_
+13,Dialogue,12,14,_,When I went to test it I think I dozed off...,_,_,_
+14,Dialogue,13,5,_,Am I in a dream?,_,_,John_Question
+15,Dialogue,10,16,_,you walk to right...,_,John_scared-left,_
+16,Dialogue,15,17,_,...,_,John_scared-left,_
+17,Dialogue,16,18,_,you walk to left...,John_scared-right,_,_
+18,Dialogue,17,19,_,...,John_scared-right,_,_
+19,Dialogue,18,5,John,Nothing....,_,_,John_Question
+20,Dialogue,11,21,,you waited 1...   2... 3... minutes,_,_,John_Question
+21,Dialogue,20,22,John,Nothing....,_,_,John_Question
+22,Dialogue,21,23,_,But suddenly...,_,_,John_Question
+23,Background,22,24,enable,Images/Backgrounds/VN_Backgrounds/Black,_,_,_
+24,Dialogue,23,25,_,Everything goes dark...,_,_,_
+25,Dialogue,24,26,_,You feel like you get sucked into something...,_,_,_
+26,Dialogue,25,27,_,...,_,_,_
+27,Background,26,28,enable,Images/Backgrounds/VN_Backgrounds/Cave 1,_,_,_
+28,Dialogue,27,29,John,Where am I?,_,_,John_Question
+29,Dialogue,28,30,_,A magical sound comes from the sky...,_,_,_
+30,Dialogue,29,31,_,And...,_,_,_
+31,Dialogue,30,32,_,A wizard appears,_,_,Wizard-question
+32,Dialogue,31,33,Wizard,Hello traveller!,John_neutral-left,Wizard-neutral-right,_
+33,Dialogue,32,34,John,Are you.. you  a wizard? where were I? and now Where am I? how did I get here? Why everything looks so... Anime?,John_neutral-left,Wizard-neutral-right,_
+34,Dialogue,33,35,Wizard,I am Azargoth the great wizard of Zylnian Kingdom. And you were  inside a portal that connects a magical world called Zylnia and your world. In your world you may call it a digital applications.,John_neutral-left,Wizard-neutral-right,_
+35,Dialogue,34,36,Azargoth,Quite an interesting name for a portal....,John_neutral-left,Wizard-neutral-right,_
+36,Dialogue,35,37,Azargoth,And this world is indeed an Anime looking world. (Not that the developers have zero skill in drawing and and they are so broke and they had to find some free assets packs that happened to be Anime),_,_,Wizard-happy-right
+37,Dialogue,36,38,Wizard,Follow me..,John_neutral-left,Wizard-neutral-right,_
+38,Dialogue,37,39,_,...,John_neutral-left,Wizard-neutral-left,_
+39,Background,38,40,enable,Images/Backgrounds/VN_Backgrounds/Cave 1,_,_,_
+40,Dialogue,39,41,_,...,John_neutral-left,Wizard-neutral-left,_
+41,Background,40,42,enable,Images/Backgrounds/VN_Backgrounds/Lodge 4,_,_,_
+42,Dialogue,41,43,_,...,John_neutral-left,Wizard-neutral-left,_
+43,Dialogue,42,44,_,...,John_neutral-left,Wizard-neutral-left,_
+44,Dialogue,43,45,John,Are we there yet?,John_angry-left,Wizard-neutral-left,_
+45,Dialogue,44,46,Wizard,We will reach our destination for today after we cross that mountain range.,John_angry-left,Wizard-neutral-right,_
+46,Dialogue,45,47,_,...,John_angry-left,Wizard-neutral-left,_
+47,Background,46,48,enable,Images/Backgrounds/VN_Backgrounds/houses,_,_,_
+48,Dialogue,47,49,Wizard,We have reached our destiation. This is a hide out village that the zylnians use these days.,John_neutral-left,Wizard-neutral-right,_
+49,Dialogue,48,50,Wizard,Here Is a map of Whole Zylnia. You'll be able to use it to travel to different locations when you get  knowledge why you came here...,John_neutral-left,Wizard-neutral-right,_
+50,Dialogue,49,51,John,Why can't you tell it right now?,_,_,John_Question
+51,Dialogue,50,52,Wizard,It's not time for now .let's look at the map and learn the world of Zylnia.,_,Wizard-neutral-right,_
+52,Dialogue,51,-2,_,...,_,_,_

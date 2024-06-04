@@ -1,6 +1,5 @@
 package com.energyelixire.energySavingGame.controller;
 
-
 import com.energyelixire.energySavingGame.model.Player;
 import com.energyelixire.energySavingGame.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -85,14 +83,15 @@ public class PlayerController {
         }
     }
 
-    @GetMapping("/getPlayer")
-    public ResponseEntity<Player> getPlayer(@RequestParam("username") String username) {
-        try {
-            Player player = playerService.getPlayerByUsername(username);
-            return new ResponseEntity<>(player, HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @GetMapping("/{nic}")
+    public ResponseEntity<Player> getPlayerByNic(@PathVariable String nic) {
+        Player player = playerService.getPlayer(nic);
+        if (player != null) {
+            return ResponseEntity.ok(player);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
+
 }
 

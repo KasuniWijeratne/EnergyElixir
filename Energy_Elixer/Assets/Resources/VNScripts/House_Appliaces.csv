@@ -1,0 +1,77 @@
+0,Background,-1,1,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Interior,_,_,_
+1,Dialogue,0,2,Bulby,Hey Alex! I am Bulby.,_,_,Bulby_main
+2,Dialogue,1,3,Alex,Hi Bulby!,_,_,John_Question
+3,Dialogue,2,4,Bulby,Do you know we can save a lot on our electricity bill with just a few small changes?,_,Bulby_main,_
+4,Dialogue,3,5,Alex,I would love to save some money and energy Bulby. Tell me how!,John_Question,_,_
+5,Dialogue,4,6,Bulby,Have you ever heard about peak hours? We can save big if we avoid doing household chores during these times.,_,Bulby_main,_
+6,Dialogue,5,7,Alex,Really? When are these peak hours?,John_Question,_,_
+7,Dialogue,6,8,Bulby,Usually around 7pm. That is when everyone is home using lots of electricity for cooking heating and entertainment.,_,Bulby_main,_
+8,Dialogue,7,9,Alex,So what can we do to save energy?,John_Question,_,_
+9,Dialogue,8,10,Bulby,One simple trick is to shift our energy-intensive chores to off-peak times like late at night or early in the morning.,_,Bulby_main,_
+10,Dialogue,9,11,Alex,How does that help Bulby?,John_Question,_,_
+11,Dialogue,10,12,Bulby,During off-peak times fewer people use electricity so the demand is lower. This often means the cost of electricity is cheaper and it puts less strain on the power grid.,_,Bulby_main,_
+12,Dialogue,11,13,Alex,That sounds great! Any other tips?,John_Question,_,_
+13,Dialogue,12,14,Bulby,Oh there are plenty! But first take a look at the tasks ahead. Some are so obvious yet we often overlook them. I believe you can make the right decisions.,_,Bulby_main,_
+14,Dialogue,13,15,Alex,I will definitely start paying more attention to when and how I use our appliances. Thanks for the tip Bulby!,John_Question,_,_
+15,Dialogue,14,-2,Bulby,No problem! Every little bit helps. Good luck!,_,Bulby_main,_
+16,Background,-1,17,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_WM,_,_,_
+17,Dialogue,16,18,Bulby,When should we do the laundry?,_,_,Bulby_main
+18,Question,17,21,A,Wash the dishes at 11pm,_,_,_
+19,Question,17,22,A,Wash the dishes at 7pm,_,_,_
+20,Question,17,23,A,Wash the dishes at 9pm,_,_,_
+21,Return,17,24,1,1_back,_,_,_
+22,Return,17,25,3,3_back,_,_,_
+23,Return,17,26,2,2_back,_,_,_
+24,Dialogue,20,-2,Bulby,Best choice! Doing laundry during off-peak hours saves money and helps balance the power grid.,_,_,Bulby_main
+25,Dialogue,24,-2,Bulby,You chose to do laundry during peak hours. This will cost more and put extra strain on the power grid.,_,_,Bulby_sad
+26,Dialogue,25,-2,Bulby,Good choice! Avoiding a high peak time has saved you money!,_,_,Bulby_Happy
+27,Background,-1,28,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/IronTable,_,_,_
+28,Dialogue,27,29,Bulby,Let’s move on to ironing clothes. How should you do that?,_,_,_
+29,Question,28,32,A,Iron all the clothes for the week at once during an off-peak time.,_,_,_
+30,Question,28,33,A,Iron all the clothes for the week at once during a high peak time.,_,_,_
+31,Question,28,34,A,Iron clothes every day before you wear them.,_,_,_
+32,Return,28,35,1,1_back,_,_,_
+33,Return,28,36,2,2_back,_,_,_
+34,Return,28,37,3,3_back,_,_,_
+35,Dialogue,31,-2,Bulby,Great choice! Ironing all your clothes at once during an off-peak time saves both time and energy. You’ll see lower costs on your electricity bill and help reduce the strain on the power grid.,_,_,Bulby_Happy
+36,Dialogue,35,-2,Bulby,Ironing all your clothes at once is efficient but doing it during peak hours is not ideal. It will cost more due to higher electricity rates and adds extra strain to the power grid.,_,_,Bulby_main
+37,Dialogue,36,-2,Bulby,Ironing clothes every day might seem convenient but it is actually the least energy-efficient option. Each session uses extra power and doing it during peak hours will cost more and increase the grid load.,_,_,Bulby_sad
+38,Background,-1,39,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Vaccum,_,_,_
+39,Dialogue,38,40,Bulby,The vacuum consumes a lot of energy. Why is that happening?,_,_,_
+40,Question,39,44,A,Vacuuming quickly to finish as soon as possible.,_,_,_
+41,Question,39,45,A,Cleaning or replacing the filters regularly.,_,_,_
+42,Question,39,46,A,Using the vacuum without any attachments.,_,_,_
+43,Question,39,47,A,Vacuuming during peak electricity hours.,_,_,_
+44,Return,39,48,3,3_back,_,_,_
+45,Return,39,49,1,1_back,_,_,_
+46,Return,39,50,2,2_back,_,_,_
+47,Return,39,51,3,3_back,_,_,_
+48,Dialogue,43,-2,Bulby,Not quite. Vacuuming quickly might seem like it saves time but it often results in poor cleaning efficiency requiring multiple passes over the same area.,_,_,Bulby_sad
+49,Dialogue,48,-2,Bulby,Correct! Regularly cleaning or replacing the filters ensures the vacuum operates at optimal efficiency reducing energy consumption.,_,_,Bulby_Happy
+50,Dialogue,49,-2,Bulby,Not exactly. Using the right attachments for different surfaces actually helps the vacuum clean more effectively which can save energy.,_,_,Bulby_main
+51,Dialogue,50,-2,Bulby,No. that’s not the best choice. Using the vacuum during off-peak hours can help save on electricity costs and reduce strain on the power grid.,_,_,Bulby_sad
+52,Background,-1,53,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Bulb,_,_,_
+53,Dialogue,52,54,Bulby,What’s the best way to save energy with our home lighting?,_,_,_
+54,Question,53,57,A,Use LED bulbs instead of incandescent ones and turning lights off when not in use.,_,_,_
+55,Question,53,58,A,Using high-power incandescent light to light up the rooms.,_,_,_
+56,Question,53,59,A,Using multiple low-power incandescent lights as LED bulbs are expensive.,_,_,_
+57,Return,53,60,1,1_back,_,_,_
+58,Return,53,61,3,3_back,_,_,_
+59,Return,53,62,3,3_back,_,_,_
+60,Dialogue,56,-2,Bulby,Correct! Using LED bulbs uses significantly less energy than incandescent bulbs and turning off lights when not in use further reduces energy consumption.,_,_,Bulby_Happy
+61,Dialogue,60,-2,Bulby,Not quite. High-power incandescent lights consume a lot of energy. Switching to LED bulbs is a much more efficient option.,_,_,Bulby_sad
+62,Dialogue,61,-2,Bulby,Not exactly. While low-power incandescent lights use less energy individually using multiple of them still consumes more energy than using LED bulbs.,_,_,Bulby_sad
+63,Background,-1,64,enable,Images/Backgrounds/VN_Backgrounds/Tasks_Backgrounds/House_Refrigerator,_,_,_
+64,Dialogue,63,65,Bulby,Our refrigerator consumes much power and I cannot switch it off. What can I do?,_,_,_
+65,Question,64,69,A,Ensure the door seals are tight and make sure that the fridge is not overcrowded.,_,_,_
+66,Question,64,70,A,Leave the refrigerator door open to allow for better air circulation.,_,_,_
+67,Question,64,71,A,Keep the refrigerator at its highest temperature setting to save energy.,_,_,_
+68,Question,64,72,A,Keep the refrigerator at its lowest temperature and place hot items directly into the refrigerator to cool them down faster.,_,_,_
+69,Return,64,73,1,1_back,_,_,_
+70,Return,64,74,3,3_back,_,_,_
+71,Return,64,75,3,3_back,_,_,_
+72,Return,64,76,3,3_back,_,_,_
+73,Dialogue,68,-2,Bulby,Correct! Tight door seals and avoiding overcrowding help maintain the refrigerator efficiency reducing energy consumption.,_,_,Bulby_Happy
+74,Dialogue,73,-2,Bulby,Leaving the refrigerator door open actually increases energy consumption as it makes the fridge work harder to maintain its temperature.,_,_,Bulby_sad
+75,Dialogue,74,-2,Bulby,Keeping the refrigerator at its highest temperature setting can lead to food spoilage and does not actually save energy.,_,_,Bulby_sad
+76,Dialogue,75,-2,Bulby,Putting hot items into the refrigerator can raise its internal temperature and cause it to consume more energy to cool down.,_,_,Bulby_sad

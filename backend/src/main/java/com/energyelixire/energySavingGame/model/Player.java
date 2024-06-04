@@ -1,6 +1,5 @@
 package com.energyelixire.energySavingGame.model;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +11,7 @@ public class Player {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String username;
+    private String nic;
     private int marks;
     private int questionNumber;
     private int level;
@@ -26,12 +25,12 @@ public class Player {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNic() {
+        return nic;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNic(String nic) {
+        this.nic = nic;
     }
 
     public int getMarks() {
