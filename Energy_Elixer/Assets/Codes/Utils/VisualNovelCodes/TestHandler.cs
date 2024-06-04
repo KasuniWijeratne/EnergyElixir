@@ -12,7 +12,8 @@ public class TestHandler : MonoBehaviour
     void Awake()
     {
         visualNovelHandler.SetReturnDataMethod(ReturnDataVN);
-        visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/1st_scene_test.csv");
+        // visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/1st_scene_test.csv");
+        visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/House_Appliaces.csv");
         visualNovelHandler.SetCharacterLocationFilePath("Assets/Resources/VNScripts/1st_scene_characters.csv");
     }
 
@@ -35,7 +36,7 @@ public class TestHandler : MonoBehaviour
     IEnumerator TestCoroutineFunction(string parameter)
     {
         //put any code to run asynchronusly here
-        Debug.Log("Running Coroutine with parameter: " + parameter);
+        Debug.Log("Visual Novel returned:" + parameter);
         // testInt += int.Parse(parameter);
         // Debug.Log("\ntestInt: " + testInt);
         yield return new WaitForSeconds(1f);

@@ -63,12 +63,13 @@ public class VisualNovelHandler : MonoBehaviour {
 
     private void updateLine(int lineNumber = 0) {
         if(lineNumber == -1) {
-            Debug.Log("Previous Scene");
+            PreviousScene();
+            return;
         }else if (lineNumber < -1) {
-            Debug.Log("Next Scene");
+            ScriptFinished();
+            return;
         }
-
-        if (!script.ContainsKey(lineNumber)) {
+        else if (!script.ContainsKey(lineNumber)) {
             Debug.Log("Line number: "+ lineNumber + " not found in script");
             return;
         }
@@ -150,6 +151,17 @@ public class VisualNovelHandler : MonoBehaviour {
             //return data[3] to the caller and load next line
 
         }
+    }
+
+    private void ScriptFinished()
+    {
+        ReturnData("~F");
+        StopVisualNovel();
+    }
+
+    private void PreviousScene()
+    {
+        ReturnData("~P");
     }
 
     public void UpdateScriptFilePath(string filePath) {
