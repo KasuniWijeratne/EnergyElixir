@@ -33,6 +33,7 @@ public class WindTurbineInteract : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = true;
+            Debug.Log("Player is in range.");
         }
     }
 
@@ -41,6 +42,7 @@ public class WindTurbineInteract : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerInRange = false;
+            Debug.Log("Player is out of range.");
         }
     }
 }
