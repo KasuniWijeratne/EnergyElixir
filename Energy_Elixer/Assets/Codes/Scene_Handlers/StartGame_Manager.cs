@@ -41,11 +41,7 @@ public class StartGame_Manager : MonoBehaviour
 
         if(APIHandler.Instance != null) {
             if(inputField.text != "") {
-                StartCoroutine(APIHandler.Instance.Authenticate(
-                    inputField.text,
-                     () => {
-                         PlayerManager.Instance.GetPlayerProfile();
-                     }));
+                APIHandler.Instance.Authenticate(inputField.text);
                 
             } else {
                 Debug.LogError("API Key is empty.");
@@ -53,8 +49,6 @@ public class StartGame_Manager : MonoBehaviour
         } else {
             Debug.LogError("APIHandler instance is null.");
         }
-
-
 
 /*        LoadScene(sceneName);*/
     }
