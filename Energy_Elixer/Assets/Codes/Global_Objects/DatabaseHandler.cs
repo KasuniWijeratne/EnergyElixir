@@ -118,7 +118,7 @@ public class DatabaseHandler : MonoBehaviour
 
     //Test FetchPlayerScores
     public void DisplayPlayerScores(){
-        FetchPlayerScores(
+        DatabaseHandler.Instance.FetchPlayerScores(
             (result) => {
                 Debug.Log("Player scores fetched successfully: " + result);
                 // Parse the JSON response
@@ -128,5 +128,7 @@ public class DatabaseHandler : MonoBehaviour
                 Debug.Log("Error fetching player scores: " + error);
             }
         );
+
+
     }
 }
