@@ -30,8 +30,8 @@ public class DatabaseHandler : MonoBehaviour
     public static DatabaseHandler Instance {
         get {
             if (instance == null) {
-                // Optionally log error or create a new GameObject with DatabaseHandler
-                Debug.LogError("DatabaseHandler is not instantiated yet.");
+                // create a new GameObject with DatabaseHandler
+                instance = new GameObject("DatabaseHandler").AddComponent<DatabaseHandler>();
             }
             return instance;
         }
@@ -72,6 +72,34 @@ public class DatabaseHandler : MonoBehaviour
         OnPlayerInfoRetrived?.Invoke();
     }
 
+
+    public void FetchPlayerScores(System.Action<string> onSuccess, System.Action<string> onError)
+    {
+        StartCoroutine(DummyFunction(onSuccess, onError));
+    }
+
+    private IEnumerator DummyFunction(System.Action<string> onSuccess, System.Action<string> onError)
+    {
+        yield return new WaitForSeconds(1);
+        onSuccess?.Invoke(
+            @"{
+                ""id"": 4,
+                ""nic"": ""string"",
+                ""marks"": 0,
+                ""questionNumber"": 0,
+                ""level"": 0,
+                ""coins"": 0
+            },
+            {
+                ""id"": 5,
+                ""nic"": ""200889654"",
+                ""marks"": 0,
+                ""questionNumber"": 0,
+                ""level"": 0,
+                ""coins"": 66
+            }");
+    }
+
     private static bool IsJsonObjectEmpty(string json) {
         json = json.Trim(); // Make sure to trim whitespace which might affect the check
         if (json.Equals("{}") || string.IsNullOrEmpty(json)) {
@@ -87,4 +115,18 @@ public class DatabaseHandler : MonoBehaviour
         OnPlayerInfoRetrived?.Invoke();
     }
 
+
+    //Test FetchPlayerScores
+    public void DisplayPlayerScores(){
+        FetchPlayerScores(
+            (result) => {
+                Debug.Log("Player scores fetched successfully: " + result);
+                // Parse the JSON response
+
+            },
+            (error) => {
+                Debug.Log("Error fetching player scores: " + error);
+            }
+        );
+    }
 }
