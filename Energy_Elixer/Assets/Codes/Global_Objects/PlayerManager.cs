@@ -6,47 +6,46 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    private static PlayerManager instance; // Singleton instance
+    private static PlayerManager instance;
     public UserProfile userProfile;
     private string playerId;
     private bool isPlayerQuestionnaireCompleted;
     public event EventHandler<int> OnPlayerEnvironmentChanged;
-
     public event System.Action OnPlayerProfileLoaded;
 
     private bool isPlayerProfileCompleted;
+    public IDynamicSystem dynamicSystemsManager;
+
+    private int playerCurrentConsumptionScore = 0;
+    private int playerPreviousConsumptionScore = 0;
+    public int PlayerCurrentConsumptionScore {
+        get { return playerCurrentConsumptionScore; }
+    }
+
     public bool IsPlayerProfileCompleted {
-        get {
-            return isPlayerProfileCompleted;
-        }
-        set {
-            isPlayerProfileCompleted = value;
-        }
+        get { return isPlayerProfileCompleted; }
+        set { isPlayerProfileCompleted = value; }
     }
 
     public bool IsPlayerQuestionnaireCompleted {
-        get {
-            return isPlayerQuestionnaireCompleted;
-        }
-        set {
-            isPlayerQuestionnaireCompleted = value;
-        }
+        get { return isPlayerQuestionnaireCompleted; }
+        set { isPlayerQuestionnaireCompleted = value; }
     }
-
 
     void Awake() {
         if (instance == null) {
             instance = this;
             GameObject playerManagerObject = this.gameObject;
-
-            // Ensure it's a root GameObject
             playerManagerObject.transform.parent = null;
-
-            DontDestroyOnLoad(playerManagerObject); // Make it persistent across scenes
+            DontDestroyOnLoad(playerManagerObject);
         }
         else if (instance != this) {
             Destroy(gameObject);
         }
+
+        dynamicSystemsManager = new DynamicSystemsManager();
+        (dynamicSystemsManager as DynamicSystemsManager).ScoreChanged += OnScoreChanged;
+        dynamicSystemsManager.InitializeScore();
 
         StartCoroutine(ChangeEnvironmentStatusAsync());
     }
@@ -54,9 +53,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager Instance {
         get {
             if (instance == null) {
-                // Create a new GameObject 
                 instance = new GameObject("PlayerManager").AddComponent<PlayerManager>();
-                
             }
             return instance;
         }
@@ -73,21 +70,20 @@ public class PlayerManager : MonoBehaviour
     public UserProfile GetUserProfile() {
         return userProfile;
     }
+
     public void SetUserProfile(UserProfile profile) {
         userProfile = profile;
     }
-
 
     public void GetPlayerProfile() {
         GetPlayerProfile(OnSuccessfulProfileFetched, OnFailedProfileFetched);
     }
 
-    private void GetPlayerProfile( System.Action<string> onSuccess, System.Action<string> onError) {
+    private void GetPlayerProfile(System.Action<string> onSuccess, System.Action<string> onError) {
         APIHandler.Instance.FetchPlayerProfile(onSuccess, onError);
     }
 
     private void OnSuccessfulProfileFetched(string result) {
-        //parse the result and set the player profile
         userProfile = JsonUtility.FromJson<UserProfile>(result);
 
         if (userProfile.IsProfileCompleted()) {
@@ -97,8 +93,6 @@ public class PlayerManager : MonoBehaviour
         }
 
         Debug.Log(result);
-
-        //invoke event to go to the next scene
         OnPlayerProfileLoaded?.Invoke();
     }
 
@@ -106,30 +100,35 @@ public class PlayerManager : MonoBehaviour
         Debug.Log(errorMsg);
     }
 
-
     public void TriggerPlayerEnvironmentChanged(int environmentStatus) {
-        if(OnPlayerEnvironmentChanged != null)
-            OnPlayerEnvironmentChanged?.Invoke(this, environmentStatus);
+        OnPlayerEnvironmentChanged?.Invoke(this, environmentStatus);
     }
 
     private IEnumerator ChangeEnvironmentStatusAsync()
     {
-        int environmentStatus = 0;
+        int environmentStatus = 0, previousEnvStatus = 0;
         while (true)
         {
-            // Generate a random environment status
-            // int environmentStatus = UnityEngine.Random.Range(0, 3);
-            environmentStatus = (environmentStatus + 1) % 4 +1;
-
-            // Trigger the player environment changed event
-            TriggerPlayerEnvironmentChanged(environmentStatus);
-
-            // Wait for a random time interval between 1 and 5 seconds
-            float waitTime = UnityEngine.Random.Range(10f, 50f);
-            // float waitTime = 5f;
-            yield return new WaitForSeconds(waitTime);
+            environmentStatus = dynamicSystemsManager.getCurrentEnvironmentStatus();
+            if (environmentStatus != previousEnvStatus)
+                TriggerPlayerEnvironmentChanged(environmentStatus);
+            previousEnvStatus = environmentStatus;
+            yield return new WaitForSeconds(UnityEngine.Random.Range(10f, 20f));
         }
     }
 
+    private void OnScoreChanged(object sender, float newScore)
+    {
+        playerPreviousConsumptionScore = playerCurrentConsumptionScore;
+        playerCurrentConsumptionScore = (int)newScore;
+        // if (playerCurrentConsumptionScore != playerPreviousConsumptionScore)
+        // {
+        //     TriggerPlayerEnvironmentChanged(dynamicSystemsManager.getCurrentEnvironmentStatus());
+        // }
+    }
 
+    public void AddDailyChallengePoints(float points)
+    {
+        dynamicSystemsManager.AddDailyChallengePoints(points);
+    }
 }

@@ -15,6 +15,7 @@ public class TestSceneHandler : MonoBehaviour
         // PlayerManager.Instance.OnPlayerEnvironmentChanged += OnPlayerEnvironmentChanged;
 
         APIHandler.Instance.Authenticate("NjVjNjA0MGY0Njc3MGQ1YzY2MTcyMmNkOjY1YzYwNDBmNDY3NzBkNWM2NjE3MjJjMw");
+        // DatabaseHandler.Instance.DisplayPlayerScores();
     }
 
     // Update is called once per frame
