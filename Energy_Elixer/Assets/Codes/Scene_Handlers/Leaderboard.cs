@@ -102,9 +102,15 @@ public class Leaderboard : MonoBehaviour
                 }
 
                 highscoreEntryTransformList = new List<Transform>();
+                int countVar = 0;
                 foreach (HighscoreEntry highscoreEntry in highscores.highscoreEntryList)
                 {
-                    CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);
+                    countVar++;
+                    if (countVar > 15){
+                        break; // Exit the loop if count exceeds 17
+                    }
+                    else{CreateHighscoreEntryTransform(highscoreEntry, entryContainer, highscoreEntryTransformList);}
+                    
                 }
             },
             (errorMsg) =>
