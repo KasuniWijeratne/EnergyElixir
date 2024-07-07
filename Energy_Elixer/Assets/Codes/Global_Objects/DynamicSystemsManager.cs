@@ -32,15 +32,18 @@ public class MonthDetails
 
 
 
-public interface IDynamicSystem 
+public abstract class IDynamicSystem : MonoBehaviour
 {
-    event EventHandler<float> ScoreChanged;
-    float CurrentScore { get; }
-    void InitializeScore();
-    void UpdateScore();
-    void AddDailyChallengePoints(float points);
-    IEnumerator ChangeEnvironmentStatusAsync();
-    int getCurrentEnvironmentStatus();
+    // public event EventHandler<float> ScoreChanged;
+    public float baseScore { get; protected set; }
+
+    public float totalScore { get; protected set; }
+
+    public abstract void InitializeScore();
+    public abstract void UpdateScore();
+    public abstract void AddQuestionnairePoints(float points);
+    public abstract IEnumerator ChangeEnvironmentStatusAsync();
+    // public abstract int GetCurrentEnvironmentStatus();
 }
  
 
@@ -73,15 +76,18 @@ public interface IDynamicSystem
     5 points if the user completes the daily challenge with bronze medal
     */
 
-
+[Serializable]
 public class DynamicSystemsManager : IDynamicSystem
 {
     public event EventHandler<float> ScoreChanged;
-    public float CurrentScore { get; private set; }
+    // public float CurrentScore { get; private set; }
 
+    private const int activeHoursPerDay = 16;
+    private DateTime lastScoreUpdate = DateTime.Now;
+    private float previousPowerConsumption = 0;
     private const float ScoreUpdateInterval = 10f;
-    private const int MaxDailyChallengePoints = 20;
-    private float dailyChallengePoints = 0;
+    private const int MaxQuestionnairePoints = 20;
+    private float questionnairePoints = 0;
 
     private bool monthlyPowerConsumptionFetched = false;
     private bool dailyPowerConsumptionFetched = false;
@@ -89,26 +95,35 @@ public class DynamicSystemsManager : IDynamicSystem
     private Dictionary<int, float> dailyPowerConsumption;
     private Dictionary<int, Dictionary<string, float>> monthlyPowerConsumption;
 
-    private MonoBehaviour coroutineRunner;
+    // private MonoBehaviour coroutineRunner;
 
-    public DynamicSystemsManager()
-    {
+    // public DynamicSystemsManager()
+    // {
+    //     coroutineRunner = new GameObject("DynamicSystemsManager").AddComponent<MonoBehaviour>();
+    //     UnityEngine.Object.DontDestroyOnLoad(coroutineRunner.gameObject);
+    // }
+
+
+    void Awake(){
         dailyPowerConsumption = new Dictionary<int, float>();
         monthlyPowerConsumption = new Dictionary<int, Dictionary<string, float>>();
-        coroutineRunner = new GameObject("DynamicSystemsManager").AddComponent<MonoBehaviour>();
-        UnityEngine.Object.DontDestroyOnLoad(coroutineRunner.gameObject);
+
+        //make this object in root level
+        transform.parent = null;
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    public void InitializeScore()
+    override public void InitializeScore()
     {
         FetchInitialData();
-        coroutineRunner.StartCoroutine(UpdateScorePeriodically());
-        coroutineRunner.StartCoroutine(ResetDailyScoreAtMidnight());
+        StartCoroutine(UpdateScorePeriodically());
+        StartCoroutine(ResetDailyScoreAtMidnight());
     }
 
     private void FetchInitialData()
     {
         APIHandler.Instance.FetchAllPowerConsumption(OnAllPowerConsumptionFetched, OnAPIError);
+        // APIHandler.Instance.DisplayDailyPowerConsumptionByCurrentMonth();
         APIHandler.Instance.FetchDailyPowerConsumptionByCurrentMonth(OnDailyPowerConsumptionFetched, OnAPIError);
     }
 
@@ -122,7 +137,7 @@ public class DynamicSystemsManager : IDynamicSystem
                 kvp => kvp.Key,
                 kvp => kvp.Value.units
             );
-        }
+        } 
 
         if (dailyPowerConsumptionFetched)
             CalculateInitialScore();
@@ -131,7 +146,8 @@ public class DynamicSystemsManager : IDynamicSystem
     private void OnDailyPowerConsumptionFetched(string response)
     {
         dailyPowerConsumptionFetched = true;
-        PowerConsumptionDailyView dailyConsumption = JsonConvert.DeserializeObject<PowerConsumptionDailyView>(response);
+        PowerConsumptionDailyViewWrapper wrapper = JsonConvert.DeserializeObject<PowerConsumptionDailyViewWrapper>(response);
+        PowerConsumptionDailyView dailyConsumption = wrapper.DailyPowerConsumptionView;
         dailyPowerConsumption = dailyConsumption.dailyUnits;
 
         if (monthlyPowerConsumptionFetched)
@@ -153,13 +169,13 @@ public class DynamicSystemsManager : IDynamicSystem
 
         if (monthlyPowerConsumption.ContainsKey(currentYear) && monthlyPowerConsumption.ContainsKey(currentYear - 1))
         {
-            float currentMonthConsumption = monthlyPowerConsumption[currentYear][currentMonthName];
-            float previousMonthConsumption = monthlyPowerConsumption[currentYear][MonthDetails.monthNames[(currentMonth - 2 + 12) % 12]];
-            float previousYearSameMonthConsumption = monthlyPowerConsumption[currentYear - 1][currentMonthName];
+            float currentMonthConsumption = monthlyPowerConsumption[currentYear][currentMonthName] / dailyPowerConsumption.Count; // take power consumption per day
+            float previousMonthConsumption = monthlyPowerConsumption[currentYear][MonthDetails.monthNames[currentMonth - 2 ]] / MonthDetails.daysPerMonth[currentMonth];
+            float previousYearSameMonthConsumption = monthlyPowerConsumption[currentYear - 1][currentMonthName] / MonthDetails.daysPerMonth[currentMonth];
 
-            if (currentMonthConsumption < previousMonthConsumption)
+            if (currentMonthConsumption <= previousMonthConsumption)
                 score += 5;
-            if (currentMonthConsumption < previousYearSameMonthConsumption)
+            if (currentMonthConsumption <= previousYearSameMonthConsumption)
                 score += 5;
         }
 
@@ -167,21 +183,37 @@ public class DynamicSystemsManager : IDynamicSystem
         {
             int today = DateTime.Now.Day;
             int yesterday = today - 1;
+            int dayBeforeYesterday = today - 2;
 
             if (dailyPowerConsumption.ContainsKey(today) && dailyPowerConsumption.ContainsKey(yesterday))
             {
-                float todayConsumption = dailyPowerConsumption[today];
                 float yesterdayConsumption = dailyPowerConsumption[yesterday];
+                float dayBeforeYesterdayConsumption = dailyPowerConsumption[dayBeforeYesterday];
 
-                if (Math.Abs(todayConsumption - yesterdayConsumption) <= 1)
-                    score += 5;
-                else if (todayConsumption < yesterdayConsumption - 2)
+                if (yesterdayConsumption <= dayBeforeYesterdayConsumption - 2)
                     score += 10;
+                else if (Math.Abs(yesterdayConsumption - dayBeforeYesterdayConsumption) <= 1 || yesterdayConsumption <= dayBeforeYesterdayConsumption - 1)
+                    score += 5;
             }
         }
 
-        CurrentScore = score;
-        ScoreChanged?.Invoke(this, CurrentScore);
+        baseScore = score; // add the initial score for the month and day
+        if(PlayerManager.Instance.playerInfo != null){
+            baseScore += PlayerManager.Instance.playerInfo.marks * 4 / 3; // 15 marks = 20 points - points coming from the questionnaire
+        }else{
+            Debug.LogWarning("Player info is null");
+        }
+        // ScoreChanged?.Invoke(this, baseScore);
+
+        APIHandler.Instance.FetchCurrentPowerConsumption(
+            (response) => {
+                CurrentPowerConsumption currentConsumption = JsonConvert.DeserializeObject<CurrentPowerConsumption>(response);
+                previousPowerConsumption = currentConsumption.currentConsumption;
+                lastScoreUpdate = DateTime.Now;
+            },
+            OnAPIError
+        );
+        
     }
 
     private IEnumerator UpdateScorePeriodically()
@@ -193,7 +225,7 @@ public class DynamicSystemsManager : IDynamicSystem
         }
     }
 
-    public void UpdateScore()
+    override public void UpdateScore()
     {
         APIHandler.Instance.FetchCurrentPowerConsumption(OnCurrentPowerConsumptionFetched, OnAPIError);
     }
@@ -201,7 +233,12 @@ public class DynamicSystemsManager : IDynamicSystem
     private void OnCurrentPowerConsumptionFetched(string response)
     {
         CurrentPowerConsumption currentConsumption = JsonConvert.DeserializeObject<CurrentPowerConsumption>(response);
-        float consumptionRate = currentConsumption.currentConsumption / 3600f; // Convert to Wh/s
+        float deltaTime = (float)(DateTime.Now - lastScoreUpdate).TotalSeconds;
+        float consumptionRate = (currentConsumption.currentConsumption - previousPowerConsumption) * 3600f / deltaTime; // Convert to J/s
+        previousPowerConsumption = currentConsumption.currentConsumption;
+        lastScoreUpdate = DateTime.Now;
+        Debug.Log($"Current consumption rate: {consumptionRate}");
+
 
         float additionalScore = 0;
 
@@ -231,23 +268,24 @@ public class DynamicSystemsManager : IDynamicSystem
             additionalScore += 15;
         }
 
-        CurrentScore += additionalScore;
-        ScoreChanged?.Invoke(this, CurrentScore);
+        totalScore = baseScore; // Reset the score
+        totalScore += additionalScore; // Add the additional score
+        
+        Debug.Log($"Current score: {totalScore}" + " | Current time: " + DateTime.Now.Hour.ToString());
+        ScoreChanged?.Invoke(this, totalScore);
     }
 
     private float GetPreviousMonthAverageRate()
     {
         int currentYear = DateTime.Now.Year;
         int currentMonth = DateTime.Now.Month;
-        // string previousMonthName = MonthDetails.monthNames[(currentMonth - 2 + 12) % 12];
         string previousMonthName = MonthDetails.monthNames[currentMonth - 2];
 
         if (monthlyPowerConsumption.ContainsKey(currentYear) && monthlyPowerConsumption[currentYear].ContainsKey(previousMonthName))
         {
             float previousMonthConsumption = monthlyPowerConsumption[currentYear][previousMonthName];
-            int daysInPreviousMonth = MonthDetails.daysPerMonth[currentMonth -2];
-            // int daysInPreviousMonth = MonthDetails.daysPerMonth[(currentMonth - 1 + 12) % 12];
-            return 1000f * previousMonthConsumption / (daysInPreviousMonth * 16f * 3600f); // Assuming 16 active hours per day
+            int daysInPreviousMonth = MonthDetails.daysPerMonth[currentMonth -1];
+            return 1000f * previousMonthConsumption / (daysInPreviousMonth * activeHoursPerDay); // Convert to J/s
         }
         Debug.LogWarning("Previous month data not available");
         return 0.1f; // Default value if data is not available
@@ -258,17 +296,18 @@ public class DynamicSystemsManager : IDynamicSystem
         int yesterday = DateTime.Now.AddDays(-1).Day;
         if (dailyPowerConsumption.ContainsKey(yesterday))
         {
-            return 1000f * dailyPowerConsumption[yesterday] / (16f * 3600f); // Assuming 16 active hours per day
+            return 1000f * dailyPowerConsumption[yesterday] / activeHoursPerDay; // Convert to J/s
         }
         Debug.LogWarning("Previous day data not available");
         return 0.2f; // Default value if data is not available
     }
 
-    public void AddDailyChallengePoints(float points)
+    override public void AddQuestionnairePoints(float points)
     {
-        dailyChallengePoints = Math.Min(dailyChallengePoints + points, MaxDailyChallengePoints);
+        questionnairePoints = Math.Min(questionnairePoints + points, MaxQuestionnairePoints);
     }
 
+    //currently not used
     private IEnumerator ResetDailyScoreAtMidnight()
     {
         while (true)
@@ -279,15 +318,17 @@ public class DynamicSystemsManager : IDynamicSystem
 
             yield return new WaitForSeconds((float)timeUntilMidnight.TotalSeconds);
 
-            CurrentScore = Math.Max(0, CurrentScore - dailyChallengePoints);
-            CurrentScore += dailyChallengePoints;
-            dailyChallengePoints = 0;
+            FetchInitialData();
 
-            ScoreChanged?.Invoke(this, CurrentScore);
+            // totalScore = Math.Max(0, totalScore - questionnairePoints);
+            // totalScore += questionnairePoints;
+            // totalScore += baseScore;
+            // questionnairePoints = 0;
+            // ScoreChanged?.Invoke(this, totalScore);
         }
     }
 
-    public IEnumerator ChangeEnvironmentStatusAsync()
+    override public IEnumerator ChangeEnvironmentStatusAsync()
     {
         // This method is not used in the current implementation
         yield break;
@@ -295,11 +336,11 @@ public class DynamicSystemsManager : IDynamicSystem
 
     public int getCurrentEnvironmentStatus()
     {
-        if (CurrentScore > 75.0f)
+        if (totalScore > 75.0f)
             return 3;
-        else if (CurrentScore > 50.0f)
+        else if (totalScore > 50.0f)
             return 2;
-        else if (CurrentScore > 25.0f)
+        else if (totalScore > 25.0f)
             return 1;
         else
             return 0;

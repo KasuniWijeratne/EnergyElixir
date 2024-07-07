@@ -8,15 +8,23 @@ public class PlayerManager : MonoBehaviour
 {
     private static PlayerManager instance;
     public UserProfile userProfile;
+
+    public DBPlayer playerInfo;
+
+    [SerializeField] private IDynamicSystem dynamicSystemsManager;
     private string playerId;
+
+    // public string PlayerId {get {return playerId;}}
     private bool isPlayerQuestionnaireCompleted;
     public event EventHandler<int> OnPlayerEnvironmentChanged;
     public event System.Action OnPlayerProfileLoaded;
 
     private bool isPlayerProfileCompleted;
-    public IDynamicSystem dynamicSystemsManager;
 
-    private int playerCurrentConsumptionScore = 0;
+    //variables for player score and environment status
+    private int playerTotalCoins = 0; //initial score and the marks from the questionnaire
+    // private int playerTotalCoins = 0; //total score of the player,     
+    private int playerCurrentConsumptionScore = 0; // 0-100
     private int playerPreviousConsumptionScore = 0;
     public int PlayerCurrentConsumptionScore {
         get { return playerCurrentConsumptionScore; }
@@ -42,12 +50,6 @@ public class PlayerManager : MonoBehaviour
         else if (instance != this) {
             Destroy(gameObject);
         }
-
-        dynamicSystemsManager = new DynamicSystemsManager();
-        (dynamicSystemsManager as DynamicSystemsManager).ScoreChanged += OnScoreChanged;
-        dynamicSystemsManager.InitializeScore();
-
-        StartCoroutine(ChangeEnvironmentStatusAsync());
     }
 
     public static PlayerManager Instance {
@@ -79,6 +81,47 @@ public class PlayerManager : MonoBehaviour
         GetPlayerProfile(OnSuccessfulProfileFetched, OnFailedProfileFetched);
     }
 
+    public void addScore(int deltaCoins)
+    {
+        playerTotalCoins += playerCurrentConsumptionScore * deltaCoins / 100;
+
+        playerInfo.coins = playerTotalCoins;
+        Debug.Log("Player total score: " + playerTotalCoins);
+
+        DatabaseHandler.Instance.UpdatePlayerCoins(
+            playerInfo, 
+            (response) => Debug.Log("Score updated successfully:" + response),
+            (response) => Debug.Log("Failed to update score: " + response)
+        );
+    }
+
+    private void GetPlayerDatabaseInfo(string nic)
+    {
+        DatabaseHandler.Instance.GetPlayerByNic(nic, OnPlayerInfoRetrieved, OnPlayerInfoRetrievedFailed);
+    }
+
+    private void OnPlayerInfoRetrievedFailed(string response)
+    {
+        isPlayerQuestionnaireCompleted = true; // For testing purposes
+        Debug.LogWarning("Failed to retrieve player info--------");
+    }
+
+    private void OnPlayerInfoRetrieved(string response)
+    {
+        playerInfo = JsonUtility.FromJson<DBPlayer>(response);
+
+        playerTotalCoins = playerInfo.coins;
+
+        if (playerInfo != null)
+        {
+            isPlayerQuestionnaireCompleted = true;
+        }
+        else
+        {
+            isPlayerQuestionnaireCompleted = false;
+        }
+    }
+
     private void GetPlayerProfile(System.Action<string> onSuccess, System.Action<string> onError) {
         APIHandler.Instance.FetchPlayerProfile(onSuccess, onError);
     }
@@ -94,6 +137,18 @@ public class PlayerManager : MonoBehaviour
 
         Debug.Log(result);
         OnPlayerProfileLoaded?.Invoke();
+
+        // Get the player info from the database
+        GetPlayerDatabaseInfo(userProfile.user.nic);
+
+        //start the dynamic systems manager after the player profile is fetched
+        // dynamicSystemsManager = new DynamicSystemsManager();
+        (dynamicSystemsManager as DynamicSystemsManager).ScoreChanged += OnScoreChanged;
+        dynamicSystemsManager.InitializeScore();
+        StartCoroutine(ChangeEnvironmentStatusAsync());
+
+
+
     }
 
     private void OnFailedProfileFetched(string errorMsg) {
@@ -109,11 +164,24 @@ public class PlayerManager : MonoBehaviour
         int environmentStatus = 0, previousEnvStatus = 0;
         while (true)
         {
-            environmentStatus = dynamicSystemsManager.getCurrentEnvironmentStatus();
+            environmentStatus = getCurrentEnvironmentStatus();
             if (environmentStatus != previousEnvStatus)
                 TriggerPlayerEnvironmentChanged(environmentStatus);
             previousEnvStatus = environmentStatus;
             yield return new WaitForSeconds(UnityEngine.Random.Range(10f, 20f));
+        }
+    }
+
+    private int getCurrentEnvironmentStatus()
+    {
+        if (playerCurrentConsumptionScore <= 60){
+            return 3;
+        }else if(playerCurrentConsumptionScore <= 40 ){
+            return 2;
+        }else if(playerCurrentConsumptionScore <= 20){
+            return 1;
+        }else{
+            return 0;
         }
     }
 
@@ -127,8 +195,8 @@ public class PlayerManager : MonoBehaviour
         // }
     }
 
-    public void AddDailyChallengePoints(float points)
+    public void AddChallengePoints(float points)
     {
-        dynamicSystemsManager.AddDailyChallengePoints(points);
+        dynamicSystemsManager.AddQuestionnairePoints(points);
     }
 }

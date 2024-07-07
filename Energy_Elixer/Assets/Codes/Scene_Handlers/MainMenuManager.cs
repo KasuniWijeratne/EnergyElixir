@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement; // Required when Using SceneManagement
 
@@ -13,7 +14,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Awake() {
         if (DatabaseHandler.Instance != null) {
-            DatabaseHandler.Instance.OnPlayerInfoRetrived += OnPlayerInfoRetrieved;
+            // DatabaseHandler.Instance.OnPlayerInfoRetrived += OnPlayerInfoRetrieved;
         }else {
             Debug.LogError("DatabaseHandler is null");
         }
@@ -50,7 +51,22 @@ public class MainMenuManager : MonoBehaviour
     public void OnNewGameBtnClicked() {
         //check if the player has completed the questionnaire
         SoundManager.Instance.PlaySFX("button_clicked");
-        DatabaseHandler.Instance.GetPlayerInformation();
+        // DatabaseHandler.Instance.GetPlayerInformation();
+        while(PlayerManager.Instance.userProfile == null){
+            Debug.Log("Waiting for player profile to be fetched");
+            Thread.Sleep(1000); // Wait for the player profile to be fetched
+        }
+            
+            
+        bool qnCompleted = PlayerManager.Instance.IsPlayerQuestionnaireCompleted;
+
+        if (qnCompleted) {
+            SceneLoader.Instance.LoadmapScene();
+        }
+        else {
+            pnlMainMenu.SetActive(false);
+            PnlRedirect.SetActive(true);
+        }
     }
 
     public void OnPlayerInfoRetrieved() {

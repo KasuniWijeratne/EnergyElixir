@@ -85,12 +85,32 @@ public class PowerConsumptionMonthlyViewWrapper
     public PowerConsumptionMonthlyView monthlyPowerConsumptionView;
 }
 [System.Serializable]
+public class PowerConsumptionDailyViewWrapper
+{
+    [JsonProperty("dailyPowerConsumptionView")]
+    public PowerConsumptionDailyView DailyPowerConsumptionView { get; set; }
+}
+[System.Serializable]
 public class PowerConsumptionDailyView
 {
-    public int year;
-    public int month;
-    public Dictionary<int, float> dailyUnits;
+    [JsonProperty("year")]
+    public int year { get; set; }
+
+    [JsonProperty("month")]
+    public int month { get; set; }
+
+    [JsonProperty("dailyUnits")]
+    public Dictionary<int, float> dailyUnits { get; set; }
 }
+
+
+// [System.Serializable]
+// public class PowerConsumptionDailyView
+// {
+//     public int year;
+//     public int month;
+//     public Dictionary<int, float> dailyUnits;
+// }
 [System.Serializable]
 public class CurrentPowerConsumption
 {
@@ -143,7 +163,6 @@ public class APIHandler : MonoBehaviour
         return SendGetRequest(path, null, onSuccess, onError);
     }
 
-    //not tested yet
     private IEnumerator SendGetRequest(string path, Dictionary<string, string> keyValuePairs, System.Action<string> onSuccess, System.Action<string> onError)
     {
         if (string.IsNullOrEmpty(jwtToken))
@@ -513,7 +532,8 @@ public class APIHandler : MonoBehaviour
             (successMsg) =>
             {
                 Debug.Log("Daily power consumption data for specific month successfully fetched: " + successMsg);
-                PowerConsumptionDailyView response = JsonConvert.DeserializeObject<PowerConsumptionDailyView>(successMsg);
+                PowerConsumptionDailyViewWrapper wrapper = JsonConvert.DeserializeObject<PowerConsumptionDailyViewWrapper>(successMsg);
+                PowerConsumptionDailyView response = wrapper.DailyPowerConsumptionView;
                 if(response.dailyUnits != null){
                     Debug.Log($"Year: {response.year}, Month: {response.month}");
                     foreach (var kvp in response.dailyUnits)
@@ -537,7 +557,8 @@ public class APIHandler : MonoBehaviour
             (successMsg) =>
             {
                 Debug.Log("Daily power consumption data for current month successfully fetched: " + successMsg);
-                PowerConsumptionDailyView response = JsonConvert.DeserializeObject<PowerConsumptionDailyView>(successMsg);
+                PowerConsumptionDailyViewWrapper wrapper = JsonConvert.DeserializeObject<PowerConsumptionDailyViewWrapper>(successMsg);
+                PowerConsumptionDailyView response = wrapper.DailyPowerConsumptionView;
                 if(response.dailyUnits != null){
                     Debug.Log($"Year: {response.year}, Month: {response.month}");
                     foreach (var kvp in response.dailyUnits)
