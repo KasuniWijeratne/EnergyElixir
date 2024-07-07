@@ -98,4 +98,10 @@ public class MainMenuManager : MonoBehaviour
         pnlMainMenu.SetActive(true);
         PnlRedirect.SetActive(false);
     }
+
+    public void OnOptionsBtnClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
+        // SceneLoader.Instance.LoadOptionsScene();
+        PlayerManager.Instance.addScore(100); // For testing purposes
+    }
 }

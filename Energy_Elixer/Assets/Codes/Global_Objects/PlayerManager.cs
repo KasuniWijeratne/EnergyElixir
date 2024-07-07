@@ -83,7 +83,7 @@ public class PlayerManager : MonoBehaviour
 
     public void addScore(int deltaCoins)
     {
-        playerTotalCoins += playerCurrentConsumptionScore * deltaCoins / 100;
+        playerTotalCoins += playerCurrentConsumptionScore * deltaCoins;
 
         playerInfo.coins = playerTotalCoins;
         Debug.Log("Player total score: " + playerTotalCoins);

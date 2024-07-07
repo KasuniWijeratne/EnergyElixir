@@ -19,8 +19,8 @@ public class MapHandler : MonoBehaviour
 
     void Start()
     {
-        // if(PlayerManager.Instance.playerInfo.coins == 0){
-        if(false){
+        if(PlayerManager.Instance.playerInfo.coins == 0){
+        // if(false){
             visualNovelHandler.StartVisualNovel();
             SoundManager.Instance.PlayMusic("visual_novel");
         }else{
@@ -43,9 +43,15 @@ public class MapHandler : MonoBehaviour
 
     // Called when the mouse exits the collider
     public void OnMouseExitCollider() {
-        if (placeName != null) {
-            placeName.text = "";
+        
+        if(UnityEngine.Random.Range(0, 4) == 1){
+            StartCoroutine(ClearText());
+        }else{
+            if (placeName != null) {
+                placeName.text = "";
+            }
         }
+        
     }
 
     // Called when the mouse clicks the collider
@@ -66,10 +72,10 @@ public class MapHandler : MonoBehaviour
     }
 
     private IEnumerator ClearText() {
-        yield return new WaitForSeconds(1f); // Wait for 1 second
+        yield return new WaitForSeconds(0.3f); // Wait for 1 second
         if (placeName != null) {
             placeName.text = "Press arrow keys or WASD to move around the map";
-            yield return new WaitForSeconds(4f); // Wait for 1 second
+            yield return new WaitForSeconds(2f); // Wait for 1 second
             if (placeName != null) {
                 placeName.text = "";
             }
