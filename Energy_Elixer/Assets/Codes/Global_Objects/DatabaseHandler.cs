@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine;
 using Newtonsoft.Json;
 using System.Text;
+using System;
 
 #region JSON Classes
 [System.Serializable]
@@ -120,44 +121,6 @@ public class DatabaseHandler : MonoBehaviour
                 onSuccess?.Invoke(request.downloadHandler.text);  // Handle the successful response
             }
         }
-    }
-
-    public void GetPlayerInformation()
-    {
-        StartCoroutine(SendGetRequest("player/getPlayer", HandlePlayerInfoSuccess, HandlePlayerInfoError));
-    }
-
-    private void HandlePlayerInfoSuccess(string response)
-    {
-        Debug.Log("Player data successfully fetched: " + response);
-        //check whether the json response has a body
-        if (IsJsonObjectEmpty(response))
-        {
-            PlayerManager.Instance.IsPlayerQuestionnaireCompleted = false;
-        }
-        else
-        {
-            PlayerManager.Instance.IsPlayerQuestionnaireCompleted = true;
-        }
-        OnPlayerInfoRetrived?.Invoke();
-    }
-
-    private static bool IsJsonObjectEmpty(string json)
-    {
-        json = json.Trim(); // Make sure to trim whitespace which might affect the check
-        if (json.Equals("{}") || string.IsNullOrEmpty(json))
-        {
-            return true;
-        }
-        // Optionally add more complex checks here
-        return false;
-    }
-
-    private void HandlePlayerInfoError(string error)
-    {
-        Debug.Log("Error fetching profile: " + error);
-        PlayerManager.Instance.IsPlayerQuestionnaireCompleted = true; // For testing purposes
-        OnPlayerInfoRetrived?.Invoke();
     }
 
     #region Database API Methods
@@ -278,6 +241,36 @@ public class DatabaseHandler : MonoBehaviour
     }
 
     #endregion
+    
+    public void GetPlayerInformation()
+    {
+        StartCoroutine(SendGetRequest("player/getPlayer", HandlePlayerInfoSuccess, HandlePlayerInfoError));
+    }
+
+    private void HandlePlayerInfoSuccess(string response)
+    {
+        OnPlayerInfoRetrived?.Invoke();
+    }
+
+    private static bool IsJsonObjectEmpty(string json)
+    {
+        json = json.Trim(); // Make sure to trim whitespace which might affect the check
+        if (json.Equals("{}") || string.IsNullOrEmpty(json))
+        {
+            return true;
+        }
+        // Optionally add more complex checks here
+        return false;
+    }
+
+    private void HandlePlayerInfoError(string error)
+    {
+        Debug.Log("Error fetching profile: " + error);
+        PlayerManager.Instance.IsPlayerQuestionnaireCompleted = true; // For testing purposes
+        OnPlayerInfoRetrived?.Invoke();
+    }
+
+
 
     public void FetchPlayerScores(System.Action<string> onSuccess, System.Action<string> onError)
     {
@@ -307,4 +300,6 @@ public class DatabaseHandler : MonoBehaviour
                 }
             ]");
     }
+
+
 }
