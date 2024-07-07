@@ -30,9 +30,25 @@ public class DBPlayer
 }
 
 [System.Serializable]
+public class AddDBPlayer
+{
+    public string nic;
+    // public int marks;
+    public int questionNumber;
+    // public int level;
+    // public int coins;
+
+    public AddDBPlayer()
+    {
+        nic = "";
+        questionNumber = 0;
+    }
+}
+
+[System.Serializable]
 public class DBPlayerList
 {
-    public List<DBPlayer> players;
+    public DBPlayer[] players;
 }
 
 #endregion
@@ -98,26 +114,29 @@ public class DatabaseHandler : MonoBehaviour
     private IEnumerator SendPostRequest(string path, string json, System.Action<string> onSuccess, System.Action<string> onError)
     {
         string url = $"{baseUrl}/{path}";
-    
-        using (UnityWebRequest request = UnityWebRequest.PostWwwForm(url, json))
+
+        using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
         {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-    
-            yield return request.SendWebRequest();  // Wait for the request to complete
-    
+
+            yield return request.SendWebRequest();
+
             if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
             {
-                Debug.LogError("Error in POST request: " + request.error);
-                onError?.Invoke(request.error);
+                Debug.LogWarning($"Error in POST request: {request.error}\nResponse Code: {request.responseCode}\nResponse: {request.downloadHandler.text}");
+                onError?.Invoke($"{request.error} - {request.downloadHandler.text}");
             }
-            else if (request.responseCode == 500)
+            else if (request.responseCode == 400)
             {
-                onError?.Invoke("Server Error: " + request.downloadHandler.text);
+                Debug.LogWarning($"Bad Request: {request.downloadHandler.text}");
+                onError?.Invoke($"Bad Request: {request.downloadHandler.text}");
             }
             else
             {
-                onSuccess?.Invoke(request.downloadHandler.text);  // Handle the successful response
+                onSuccess?.Invoke(request.downloadHandler.text);
             }
         }
     }
@@ -192,9 +211,11 @@ public class DatabaseHandler : MonoBehaviour
         StartCoroutine(SendPostRequest("player/delete", json, onSuccess, onError));
     }
 
-    public void AddPlayer(DBPlayer player, System.Action<string> onSuccess, System.Action<string> onError)
+    public void AddPlayer(AddDBPlayer player, System.Action<string> onSuccess, System.Action<string> onError)
     {
-        string json = JsonUtility.ToJson(player);
+        var wrapper = new { player = player };
+        string json = JsonConvert.SerializeObject(player);
+        Debug.Log("Player JSON: " + json); // For debugging purposes
         StartCoroutine(SendPostRequest("player/add", json, onSuccess, onError));
     }
 
@@ -223,7 +244,7 @@ public class DatabaseHandler : MonoBehaviour
             },
             (errorMsg) =>
             {
-                Debug.LogError("Error fetching player data: " + errorMsg);
+                Debug.LogWarning("Error fetching player data: " + errorMsg);
             }
         );
     }
@@ -234,15 +255,16 @@ public class DatabaseHandler : MonoBehaviour
             (successMsg) =>
             {
                 Debug.Log("All players data successfully fetched: " + successMsg);
-                DBPlayerList playerList = JsonConvert.DeserializeObject<DBPlayerList>(successMsg);
-                foreach (var player in playerList.players)
+                // DBPlayerList playerList = JsonConvert.DeserializeObject<DBPlayerList>(successMsg);
+                List<DBPlayer> players = JsonConvert.DeserializeObject<List<DBPlayer>>(successMsg);
+                foreach (var player in players)
                 {
                     Debug.Log($"Player NIC: {player.nic}, Marks: {player.marks}, Question Number: {player.questionNumber}, Level: {player.level}, Coins: {player.coins}");
                 }
             },
             (errorMsg) =>
             {
-                Debug.LogError("Error fetching all players data: " + errorMsg);
+                Debug.LogWarning("Error fetching all players data: " + errorMsg);
             }
         );
     }
@@ -257,12 +279,12 @@ public class DatabaseHandler : MonoBehaviour
             },
             (errorMsg) =>
             {
-                Debug.LogError("Error updating player question number: " + errorMsg);
+                Debug.LogWarning("Error updating player question number: " + errorMsg);
             }
         );
     }
 
-    public void AddAndDisplayPlayer(DBPlayer player)
+    public void AddAndDisplayPlayer(AddDBPlayer player)
     {
         AddPlayer(player,
             (successMsg) =>
@@ -272,7 +294,7 @@ public class DatabaseHandler : MonoBehaviour
             },
             (errorMsg) =>
             {
-                Debug.LogError("Error adding player: " + errorMsg);
+                Debug.LogWarning("Error adding player: " + errorMsg);
             }
         );
     }

@@ -95,15 +95,41 @@ public class PlayerManager : MonoBehaviour
         );
     }
 
-    private void GetPlayerDatabaseInfo(string nic)
+    private void GetPlayerDatabaseInfo(string userName)
     {
-        DatabaseHandler.Instance.GetPlayerByNic(nic, OnPlayerInfoRetrieved, OnPlayerInfoRetrievedFailed);
+        // DatabaseHandler.Instance.DisplayAllPlayers(); // For testing purposes
+        DatabaseHandler.Instance.GetPlayerByNic(userName, OnPlayerInfoRetrieved, OnPlayerInfoRetrievedFailed);
     }
 
     private void OnPlayerInfoRetrievedFailed(string response)
     {
-        isPlayerQuestionnaireCompleted = true; // For testing purposes
-        Debug.LogWarning("Failed to retrieve player info--------");
+        // isPlayerQuestionnaireCompleted = true; // For testing purposes
+
+        if(response.Contains("404"))
+        {
+            Debug.LogWarning("Player not found in the database : " + response);
+            Debug.Log("Creating new player in the database");
+            AddDBPlayer playerDB = new AddDBPlayer();
+            playerDB.nic = userProfile.user.username;
+            // playerDB.marks = 5;
+            playerDB.questionNumber = 0;
+            // playerDB.level = 3;
+            // playerDB.coins = 6;
+            
+            DatabaseHandler.Instance.AddPlayer(
+                playerDB,
+                (res) => {
+                    Debug.Log("Player added successfully: " + res);
+                    GetPlayerDatabaseInfo(userProfile.user.username);
+                    // DatabaseHandler.Instance.DisplayAllPlayers(); // For testing purposes
+                },
+                (res) => Debug.Log("Failed to add player: " + res)
+            );
+        }
+        else
+        {
+            Debug.LogWarning("Failed to retrieve player info: " + response);
+        }
     }
 
     private void OnPlayerInfoRetrieved(string response)
@@ -112,7 +138,7 @@ public class PlayerManager : MonoBehaviour
 
         playerTotalCoins = playerInfo.coins;
 
-        if (playerInfo != null)
+        if (playerInfo != null && playerInfo.questionNumber == 10)
         {
             isPlayerQuestionnaireCompleted = true;
         }
@@ -139,7 +165,7 @@ public class PlayerManager : MonoBehaviour
         OnPlayerProfileLoaded?.Invoke();
 
         // Get the player info from the database
-        GetPlayerDatabaseInfo(userProfile.user.nic);
+        GetPlayerDatabaseInfo(userProfile.user.username);
 
         //start the dynamic systems manager after the player profile is fetched
         // dynamicSystemsManager = new DynamicSystemsManager();
