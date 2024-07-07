@@ -38,6 +38,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(string name)
     {
+        if(musicSounds == null || musicSounds.Length == 0)
+        {
+            Debug.LogWarning("No music sounds found!");
+            return;
+        }
         Sound s = System.Array.Find(musicSounds, sound => sound.name == name);
         if (s == null)
         {
@@ -50,6 +55,11 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySFX(string name)
     {
+        if (sfxSounds == null || sfxSounds.Length == 0)
+        {
+            Debug.LogWarning("No sfx sounds found!");
+            return;
+        }
         Sound s = System.Array.Find(sfxSounds, sound => sound.name == name);
         if (s == null)
         {
