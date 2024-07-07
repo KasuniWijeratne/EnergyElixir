@@ -24,7 +24,7 @@ public class Leaderboard : MonoBehaviour
         //     new HighscoreEntry{ score = 466854, name = "Podini" },
         // };
 
-        // AddHighscoreEntry(10000,"Yasas");
+        AddHighscoreEntry(100000,"Ninuka");
 
         string jsonString = PlayerPrefs.GetString("highscoreTable");
         Highscores highscores = JsonUtility.FromJson<Highscores>(jsonString);
