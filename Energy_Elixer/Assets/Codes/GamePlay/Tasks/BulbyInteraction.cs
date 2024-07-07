@@ -44,7 +44,6 @@ public class BulbyInteraction : MonoBehaviour
         if (taskStatus.ContainsKey(objectName))
         {
             return taskStatus[objectName];
-            
         }
         else
         {
@@ -60,7 +59,6 @@ public class BulbyInteraction : MonoBehaviour
             playerInRange = true;
 
             objectName = this.gameObject.name;
-            Debug.Log("Object Name: " + objectName);
             if (!taskStatus.ContainsKey(objectName))
             {
                 taskStatus.Add(objectName, false);
@@ -77,9 +75,16 @@ public class BulbyInteraction : MonoBehaviour
         }
     }
 
-    void updateStatus(bool status){
-        taskStatus[objectName] = status;
-        Debug.Log("Task Status: " + objectName);
+    void updateStatus(bool status , int score = 0){
+        if (score == 5 || score == 2){  //if the task is successful and done for the second time
+                if (taskStatus[objectName]){
+                    score = 0;
+                }
+        }
+
+        GameManager.score += score;
+
+        taskStatus[objectName] = status; //update the task status
 
         if (notification != null)
             {
@@ -88,7 +93,7 @@ public class BulbyInteraction : MonoBehaviour
             else
             {
                 Debug.LogError("Notification object is null. Cannot send notification.");
-            }
+            }        
     }
 
     IEnumerator TestCoroutineFunction(string parameter)
@@ -113,27 +118,25 @@ public class BulbyInteraction : MonoBehaviour
             {
                 case 1:
                     score = 5;
-                    updateStatus(true);
+                    updateStatus(true , score);
                     break;
                 case 2:
                     score = 2;
-                    updateStatus(true);
+                    updateStatus(true , score);
                     break;
                 case 3:
                     score = -3;
-                    // updateStatus(false);
+                    updateStatus(false , score);
                     break;
 
                 default:
                     score = 0;
-                    // updateStatus(false);
+                    updateStatus(false, score);
                     break;
             }
 
             score *= multiplier;
 
-            GameManager.score += score;
-            previousScore = score;
         }
         // Debug.Log("\ntestInt: " + testInt);
         yield return null;

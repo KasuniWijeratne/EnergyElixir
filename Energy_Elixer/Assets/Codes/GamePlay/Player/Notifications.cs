@@ -28,7 +28,7 @@ public class Notifications : MonoBehaviour
         { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
         { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" },
         { "Bulby_Interact", "This is Bulby. He can help you with your tasks. Press Shift to interact with him when he says Hi."},
-        { "Bulby_Laundry", "Bulby has successfully completed the task. You have helped the world to save energy."},
+        { "Bulby_Laundry", "Bulby has successfully completed the laundry task. You have helped the world to save energy."},
         { "Bulby_Laundry_Fail", "Bulby has failed to complete the laundry task. Energy is being wasted."},
         { "Bulby_Iron", "Bulby has successfully completed the ironing task. You have helped the world to save energy."},
         { "Bulby_Iron_Fail", "Bulby has failed to complete the ironing task. Energy is being wasted."},
