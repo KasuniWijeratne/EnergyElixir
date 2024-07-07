@@ -194,17 +194,18 @@ public class PlayerManager : MonoBehaviour
             if (environmentStatus != previousEnvStatus)
                 TriggerPlayerEnvironmentChanged(environmentStatus);
             previousEnvStatus = environmentStatus;
-            yield return new WaitForSeconds(UnityEngine.Random.Range(10f, 20f));
+            yield return new WaitForSeconds(UnityEngine.Random.Range(5f, 10f));
         }
     }
 
     private int getCurrentEnvironmentStatus()
     {
+        Debug.Log("Player current consumption score: " + playerCurrentConsumptionScore);
         if (playerCurrentConsumptionScore <= 60){
             return 3;
-        }else if(playerCurrentConsumptionScore <= 40 ){
+        }else if(playerCurrentConsumptionScore <= 50 ){
             return 2;
-        }else if(playerCurrentConsumptionScore <= 20){
+        }else if(playerCurrentConsumptionScore <= 30){
             return 1;
         }else{
             return 0;
