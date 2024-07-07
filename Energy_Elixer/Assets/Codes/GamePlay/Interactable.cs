@@ -17,10 +17,6 @@ public class Interactable : MonoBehaviour
     {
         notification = FindObjectOfType<Notifications>();
         streetLampController = FindObjectOfType<StreetLampController>();
-        if (streetLampController == null)
-        {
-            Debug.LogError("StreetLampController component is not found.");
-        }
         if (notification == null)
         {
             Debug.LogError("No Notifications object found in the scene.");
@@ -89,9 +85,9 @@ public class Interactable : MonoBehaviour
             {
                 notification.getNotificationMessage("StreetLamps", streetLampController.GetLampState());
             }
-            else if (collision.attachedRigidbody.name == "Bulby")
+            else if (collision.attachedRigidbody.name.Contains("Bulby"))
             {
-                notification.getNotificationMessage("Bulby", isInRange);
+                notification.getNotificationMessage(collision.attachedRigidbody.name, isInRange);
             }
             else
             {

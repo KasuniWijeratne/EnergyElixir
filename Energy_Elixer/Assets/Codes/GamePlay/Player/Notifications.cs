@@ -6,6 +6,8 @@ using UnityEngine;
 public class Notifications : MonoBehaviour
 {
     public TextMeshProUGUI notificationText;
+
+    private BulbyInteraction BulbyInteraction;
     private Dictionary<string, string> notificationsList = new Dictionary<string, string>()
     {
         { "empty", "" },
@@ -25,8 +27,27 @@ public class Notifications : MonoBehaviour
         { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" },
         { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
         { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" },
-        { "Bulby_Interact", "This is Bulby. He can help you with your tasks. Press Shift to interact with him when he says Hi."}
+        { "Bulby_Interact", "This is Bulby. He can help you with your tasks. Press Shift to interact with him when he says Hi."},
+        { "Bulby_Laundry", "Bulby has successfully completed the task. You have helped the world to save energy."},
+        { "Bulby_Laundry_Fail", "Bulby has failed to complete the laundry task. Energy is being wasted."},
+        { "Bulby_Iron", "Bulby has successfully completed the ironing task. You have helped the world to save energy."},
+        { "Bulby_Iron_Fail", "Bulby has failed to complete the ironing task. Energy is being wasted."},
+        { "Bulby_Vaccum", "Bulby has successfully completed the vaccum task. You have helped the world to save energy."},
+        { "Bulby_Vaccum_Fail", "Bulby has failed to complete the vaccum task. Energy is being wasted."},
+        { "Bulby_Light", "Bulby has successfully completed the light task. You have helped the world to save energy."},
+        { "Bulby_Light_Fail", "Bulby has failed to complete the light task. Energy is being wasted."},
+        { "Bulby_Fridge", "Bulby has successfully completed the fridge task. You have helped the world to save energy."},
+        { "Bulby_Fridge_Fail", "Bulby has failed to complete the fridge task. Energy is being wasted."}
     };
+
+    void Start()
+    {
+        BulbyInteraction = FindObjectOfType<BulbyInteraction>();
+        if (BulbyInteraction == null)
+        {
+            Debug.LogError("BulbyInteraction object not found!");
+        }
+    }
 
     public void sendNotification(string key)
     {
@@ -83,12 +104,43 @@ public class Notifications : MonoBehaviour
         {
             message = "OnBioMass";
         }
-        else if (tag == "Bulby" && trigger)
+        else if (tag == "Bulby_Intro" && trigger)
         {
             message = "Bulby_Interact";
         }
+        else if (tag == "Bulby_Laundry" && trigger && BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Laundry";
+        }
+        else if (tag == "Bulby_Laundry" && trigger && !BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Laundry_Fail";
+        }
+        else if (tag == "Bulby_Iron" && trigger && BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Iron";
+        }
+        else if (tag == "Bulby_Iron" && trigger && !BulbyInteraction.getTaskSuccess(tag)){ 
+            message = "Bulby_Iron_Fail";
+        }
+        else if (tag == "Bulby_Vaccum" && trigger && BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Vaccum";
+        }
+        else if (tag == "Bulby_Vaccum" && trigger && !BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Vaccum_Fail";
+        }
+        else if (tag == "Bulby_Light" && trigger && BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Light";
+        }
+        else if (tag == "Bulby_Light" && trigger && !BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Light_Fail";
+        }
+        else if (tag == "Bulby_Fridge" && trigger && BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Fridge";
+        }
+        else if (tag == "Bulby_Fridge" && trigger && !BulbyInteraction.getTaskSuccess(tag)){
+            message = "Bulby_Fridge_Fail";
+        } 
         else
         {
+            Debug.Log(tag);
             message = "empty";
         }
         sendNotification(message);

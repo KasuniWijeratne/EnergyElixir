@@ -613,6 +613,7 @@ GameObject:
   - component: {fileID: 2331255920953559640}
   - component: {fileID: 1157430203637521680}
   - component: {fileID: 4535196789396519103}
+  - component: {fileID: 7669039200592425566}
   m_Layer: 14
   m_Name: lamp1
   m_TagString: Untagged
@@ -759,6 +760,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotlight: {fileID: 206465536284731865}
   notification: {fileID: 0}
+--- !u!50 &7669039200592425566
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5223839260906675349}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &6730522122109699571
 GameObject:
   m_ObjectHideFlags: 0

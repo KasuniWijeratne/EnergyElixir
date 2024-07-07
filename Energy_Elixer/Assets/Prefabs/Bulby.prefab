@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4191798353022372333}
   - component: {fileID: 6607906980988529008}
   - component: {fileID: 5639182531235018406}
+  - component: {fileID: 8186414363476604407}
   m_Layer: 0
   m_Name: Bulby
   m_TagString: Untagged
@@ -207,6 +208,33 @@ MonoBehaviour:
   startPoint: 0
   visualNovelHandler: {fileID: 0}
   dialogueBox: {fileID: 7686071963322434155}
+--- !u!50 &8186414363476604407
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611328259803592203}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &7433755898890348482
 GameObject:
   m_ObjectHideFlags: 0

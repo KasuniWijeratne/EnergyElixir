@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -7,10 +8,14 @@ public class BulbyInteraction : MonoBehaviour
 {
     private bool playerInRange;
 
+    private static Dictionary<string, bool> taskStatus = new Dictionary<string, bool>();
+
     private int previousScore = 0;
+    private string objectName;
     [SerializeField] int startPoint = 0;
     [SerializeField] VisualNovelHandler visualNovelHandler;
     [SerializeField] SpriteRenderer dialogueBox;
+    [SerializeField] Notifications notification;
 
     void Awake()
     {
@@ -18,8 +23,6 @@ public class BulbyInteraction : MonoBehaviour
         visualNovelHandler.UpdateScript("Assets/Resources/VNScripts/House_Appliaces.csv");
         visualNovelHandler.SetCharacterLocationFilePath("Assets/Resources/VNScripts/1st_scene_characters.csv");
     }
-
-
 
     void Start()
     {
@@ -36,14 +39,32 @@ public class BulbyInteraction : MonoBehaviour
         }
     }
 
+    public bool getTaskSuccess(string objectName)
+    {
+        if (taskStatus.ContainsKey(objectName))
+        {
+            return taskStatus[objectName];
+            
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            //notification.getNotificationMessage("Bulby_Hi", True); // or a DialogueBox over bulby
-            Debug.Log("Player in range");
             dialogueBox.enabled = true;
             playerInRange = true;
+
+            objectName = this.gameObject.name;
+            Debug.Log("Object Name: " + objectName);
+            if (!taskStatus.ContainsKey(objectName))
+            {
+                taskStatus.Add(objectName, false);
+            }
         }
     }
 
@@ -51,32 +72,34 @@ public class BulbyInteraction : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //notification.getNotificationMessage("Bulby_Hi", False); // or a DialogueBox over bulby
-            Debug.Log("Player out of range");
             dialogueBox.enabled = false;
             playerInRange = false;
         }
     }
 
-    void OnBulbyInteraction()
-    {
+    void updateStatus(bool status){
+        taskStatus[objectName] = status;
+        Debug.Log("Task Status: " + objectName);
 
+        if (notification != null)
+            {
+                notification.getNotificationMessage(objectName, true);
+            }
+            else
+            {
+                Debug.LogError("Notification object is null. Cannot send notification.");
+            }
     }
 
-        IEnumerator TestCoroutineFunction(string parameter)
+    IEnumerator TestCoroutineFunction(string parameter)
     {
         int score = 0;
-        int status = 0;        
+        int status = 0;    
         //put any code to run asynchronusly here
-        // Debug.Log("Visual Novel returned:" + parameter);
         if (parameter == "~P" || parameter == "~F")
         {
-            // GameManager.score -= previousScore;
             visualNovelHandler.StopVisualNovel();
-        
         }
-        
-        
         
         if(int.TryParse(parameter, out status)){
             int multiplier = 1;
@@ -86,32 +109,29 @@ public class BulbyInteraction : MonoBehaviour
             }else {
                 multiplier = 1;
             }
-
-
                 switch (status)
             {
                 case 1:
-                    // Debug.Log("right answer");
                     score = 5;
+                    updateStatus(true);
                     break;
                 case 2:
-                    // Debug.Log("neutral answer");
                     score = 2;
+                    updateStatus(true);
                     break;
                 case 3:
-                    // Debug.Log("Wrong answer");
                     score = -3;
+                    // updateStatus(false);
                     break;
 
                 default:
-                    // Debug.Log("default case");
                     score = 0;
+                    // updateStatus(false);
                     break;
             }
 
             score *= multiplier;
 
-            GameManager.score -= previousScore;
             GameManager.score += score;
             previousScore = score;
         }
