@@ -82,10 +82,9 @@ public class MainMenuManager : MonoBehaviour
     }
 
 
-    public void OnLoadGameBtnClicked() {
+    public void OnLeaderboardBtnClicked() {
         SoundManager.Instance.PlaySFX("button_clicked");
-        Debug.Log("Load Game Button Clicked");
-        //implement loading of saved game
+        SceneLoader.Instance.LoadLeaderboardScene();
     }
 
     public void OnRedirectBtnClicked() {

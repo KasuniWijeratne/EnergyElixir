@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 118968663}
   - component: {fileID: 118968662}
   m_Layer: 5
-  m_Name: BtnLoadGame
+  m_Name: BtnLeaderboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2314,7 +2314,7 @@ GameObject:
   - component: {fileID: 1603369059}
   - component: {fileID: 1603369058}
   m_Layer: 5
-  m_Name: BtnNewGame
+  m_Name: BtnEnterGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2732,7 +2732,7 @@ GameObject:
   - component: {fileID: 1802144936}
   - component: {fileID: 1802144935}
   m_Layer: 5
-  m_Name: BtnNewGame
+  m_Name: BtnEnterGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3026,7 +3026,7 @@ GameObject:
   - component: {fileID: 1920034939}
   - component: {fileID: 1920034938}
   m_Layer: 5
-  m_Name: BtnLoadGame
+  m_Name: BtnLeaderBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3098,7 +3098,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1757233708}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: OnLoadGameBtnClicked
+        m_MethodName: OnLeaderboardBtnClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
