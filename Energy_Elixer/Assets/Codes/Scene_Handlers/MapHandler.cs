@@ -19,8 +19,13 @@ public class MapHandler : MonoBehaviour
 
     void Start()
     {
-        visualNovelHandler.StartVisualNovel();
-        SoundManager.Instance.PlayMusic("visual_novel");
+        if(PlayerManager.Instance.playerInfo.coins == 0){
+            visualNovelHandler.StartVisualNovel();
+            SoundManager.Instance.PlayMusic("visual_novel");
+        }else{
+            SoundManager.Instance.PlayMusic("map");
+        }
+        
     }
 
     private void ReturnDataVN(string obj)
