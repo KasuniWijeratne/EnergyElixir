@@ -57,6 +57,8 @@ public class MapHandler : MonoBehaviour
 
             if(colliderName == "Village"){
                 SceneLoader.Instance.LoadGameScene(1);
+            }else if(colliderName == "Town"){
+                SceneLoader.Instance.LoadGameScene(2);
             }else{
                 placeName.text = colliderName + " is not available yet!"; 
             }
@@ -66,7 +68,11 @@ public class MapHandler : MonoBehaviour
     private IEnumerator ClearText() {
         yield return new WaitForSeconds(1f); // Wait for 1 second
         if (placeName != null) {
-            placeName.text = "";
+            placeName.text = "Press arrow keys or WASD to move around the map";
+            yield return new WaitForSeconds(4f); // Wait for 1 second
+            if (placeName != null) {
+                placeName.text = "";
+            }
         }
     }
 

@@ -25,6 +25,7 @@ public class SceneLoader : MonoBehaviour {
         "Assets/Scenes/Game Env/GameEnv2.unity" // level 2
         };
     private string mapScenePath = "Assets/Scenes/Map.unity";
+    private string leaderboardScenePath = "Assets/Scenes/Leeaderboard.unity";
     
 
 
@@ -108,5 +109,9 @@ public class SceneLoader : MonoBehaviour {
 
     public void LoadmapScene() {
         SceneManager.LoadScene(mapScenePath);
+    }
+
+    public void LoadLeaderboardScene() {
+        SceneManager.LoadScene(leaderboardScenePath);
     }
 }
