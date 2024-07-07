@@ -4,12 +4,12 @@ import { data } from '../../assets/data';
 
 const Quiz = (name) => {
 
-    const username = name.username;
+    const nic = name.nic;
     const [player, setPlayer] = useState([]);
 
     useEffect(()=>{
-        fetch("http://localhost:8080/player/getPlayer"+"?username="+username).then(res=>res.json())
-        .then((response)=>{setPlayer(response);})},[username])
+        fetch("http://localhost:8080/player/${nic}").then(res=>res.json())
+        .then((response)=>{setPlayer(response);})},[nic])
 
     console.log(player);
 
@@ -83,7 +83,7 @@ const Quiz = (name) => {
             setFeedback(true);
             generateFeedback();
             const questionNumber = index+1;
-            const currentQustion =  {username, questionNumber};
+            const currentQustion =  {nic, questionNumber};
             fetch("http://localhost:8080/player/updateQuestionNumber", {
             method:"POST",
             headers:{"Content-Type":"application/json"},
@@ -115,7 +115,7 @@ const Quiz = (name) => {
 
     const updateDatabase = (e)=>{
         e.preventDefault();
-        const player = {username, marks};
+        const player = {nic, marks};
         fetch("http://localhost:8080/player/updateMarks", {
             method:"POST",
             headers:{"Content-Type":"application/json"},
