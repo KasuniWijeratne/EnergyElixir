@@ -92,4 +92,11 @@ public class MainMenuManager : MonoBehaviour
         SoundManager.Instance.PlaySFX("button_clicked");
         Application.OpenURL("http://localhost:5173/");
     }
+
+    public void OnBackBtnClicked() {
+        SoundManager.Instance.PlaySFX("button_clicked");
+        PlayerManager.Instance.GetPlayerDatabaseInfo(PlayerManager.Instance.userProfile.user.username);
+        pnlMainMenu.SetActive(true);
+        PnlRedirect.SetActive(false);
+    }
 }

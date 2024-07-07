@@ -95,7 +95,7 @@ public class PlayerManager : MonoBehaviour
         );
     }
 
-    private void GetPlayerDatabaseInfo(string userName)
+    public void GetPlayerDatabaseInfo(string userName)
     {
         // DatabaseHandler.Instance.DisplayAllPlayers(); // For testing purposes
         DatabaseHandler.Instance.GetPlayerByNic(userName, OnPlayerInfoRetrieved, OnPlayerInfoRetrievedFailed);
