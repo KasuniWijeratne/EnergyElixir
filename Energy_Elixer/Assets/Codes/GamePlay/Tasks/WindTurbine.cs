@@ -36,9 +36,11 @@ void Start()
 
 }
     public void SwitchOnTurbine(){
-        isWindy = true;
+        if(isWindy == false)
+            GameManager.score += 12;
+        isWindy = true; 
         if (notification != null){
-            notification.getNotificationMessage("WindPower", isWindy);}
-        GameManager.score += 12;
+            notification.getNotificationMessage("WindPower", isWindy);
+        }   
     }
 }

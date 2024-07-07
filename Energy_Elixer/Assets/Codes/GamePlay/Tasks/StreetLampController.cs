@@ -13,6 +13,11 @@ public class StreetLampController : MonoBehaviour
         notification = FindObjectOfType<Notifications>();
     }
 
+    public bool GetLampState()
+    {
+        return spotlight.activeSelf;
+    }
+
     public void ToggleLight()
     {
         if (spotlight != null)
@@ -28,8 +33,8 @@ public class StreetLampController : MonoBehaviour
                 {
                     notification.getNotificationMessage("StreetLamps", isActive);
                 }
-                GameManager.score -= 4;
-                pointsIncreased = false;
+                    GameManager.score -= 4;
+                    pointsIncreased = false;
             }
             else if (!isActive && !pointsIncreased)
             {

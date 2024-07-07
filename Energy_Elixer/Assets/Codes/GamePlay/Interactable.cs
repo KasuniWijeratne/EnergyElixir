@@ -11,9 +11,16 @@ public class Interactable : MonoBehaviour
     public UnityEvent interactAction;
     private Notifications notification;
 
+    private StreetLampController streetLampController;
+
     void Start()
     {
         notification = FindObjectOfType<Notifications>();
+        streetLampController = FindObjectOfType<StreetLampController>();
+        if (streetLampController == null)
+        {
+            Debug.LogError("StreetLampController component is not found.");
+        }
         if (notification == null)
         {
             Debug.LogError("No Notifications object found in the scene.");
@@ -77,6 +84,10 @@ public class Interactable : MonoBehaviour
             else if (collision.attachedRigidbody.name == "biomass")
             {
                 notification.getNotificationMessage("BioMassPower", isInRange);
+            }
+            else if (collision.attachedRigidbody.name == "lamp1" || collision.attachedRigidbody.name == "lamp2" || collision.attachedRigidbody.name == "lamp3" || collision.attachedRigidbody.name == "lamp4" || collision.attachedRigidbody.name == "lamp5")
+            {
+                notification.getNotificationMessage("StreetLamps", streetLampController.GetLampState());
             }
             else
             {
