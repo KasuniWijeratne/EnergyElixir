@@ -47,13 +47,16 @@ public class Notifications : MonoBehaviour
         {
             Debug.LogError("BulbyInteraction object not found!");
         }
+        notificationText.color = Color.white;
     }
 
     public void sendNotification(string key)
     {
         if (notificationsList.ContainsKey(key))
         {
+            notificationText.color = Color.white;
             notificationText.text = notificationsList[key];
+            notificationText.color = Color.white;
         }
         else
         {

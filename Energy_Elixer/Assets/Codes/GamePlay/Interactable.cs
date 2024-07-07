@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+
 // using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Events;
@@ -39,8 +41,12 @@ public class Interactable : MonoBehaviour
     {
         try
         {
-            if (collision.attachedRigidbody.name == null)
+            if (collision.attachedRigidbody.name == null){
                 return;
+            }
+            else if (collision.attachedRigidbody.name == "GameComplete"){
+                SceneLoader.Instance.LoadmapScene();
+            }
 
             isInRange = true;
             triggerNotification(collision);
