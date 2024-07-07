@@ -19,7 +19,8 @@ public class MapHandler : MonoBehaviour
 
     void Start()
     {
-        if(PlayerManager.Instance.playerInfo.coins == 0){
+        // if(PlayerManager.Instance.playerInfo.coins == 0){
+        if(false){
             visualNovelHandler.StartVisualNovel();
             SoundManager.Instance.PlayMusic("visual_novel");
         }else{
