@@ -1,0 +1,369 @@
+fileFormatVersion: 2
+guid: ef82b7bffed58ec4689d726789b72a73
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 61
+        width: 98
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8009049a7ce906c4bbec54a92b6ceec0
+      internalID: -1456468150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_1
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 61
+        width: 83
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cfde7eb41703cd4684459475aef4904
+      internalID: 523893601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_2
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 61
+        width: 73
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b461f6d777294428b110e9e06a9bec
+      internalID: 1546208868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_3
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 61
+        width: 63
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d34ec8b9769c44dae32e484f5eb8ec
+      internalID: 1178717851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_4
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 61
+        width: 56
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f04b6d174b38af4bb1cfe3a486fa9bd
+      internalID: -934219285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_5
+      rect:
+        serializedVersion: 2
+        x: 568
+        y: 61
+        width: 18
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5762f3e29cc851c4faa9201191d0123f
+      internalID: -631350254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_6
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 61
+        width: 56
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb0305500b667a646b86443893296ee0
+      internalID: 138320971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_7
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 61
+        width: 63
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a413d9cd8e0264292d4ae0aa146e53
+      internalID: -975325287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_8
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 61
+        width: 73
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60de06da0c3224b46ac1a5998211575e
+      internalID: 2079125880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_9
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 61
+        width: 83
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1f21a2d73aeec442b1c0922ede6e51d
+      internalID: 1419772567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_10
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 61
+        width: 98
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59982259dc7eb5744afa0bb5dd5f2186
+      internalID: 1499718709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 51fe527481dac034fb796379d291cef8
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_0: -1456468150
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_1: 523893601
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_10: 1499718709
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_2: 1546208868
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_3: 1178717851
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_4: -934219285
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_5: -631350254
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_6: 138320971
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_7: -975325287
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_8: 2079125880
+      vecteezy_set-of-star-rotate-game-sprite-animation-ui-rate_14320508-removebg-preview_9: 1419772567
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
