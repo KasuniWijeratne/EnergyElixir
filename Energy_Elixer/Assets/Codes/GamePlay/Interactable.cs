@@ -89,6 +89,10 @@ public class Interactable : MonoBehaviour
             {
                 notification.getNotificationMessage("StreetLamps", streetLampController.GetLampState());
             }
+            else if (collision.attachedRigidbody.name == "Bulby")
+            {
+                notification.getNotificationMessage("Bulby", isInRange);
+            }
             else
             {
                 // Debug.Log(collision.attachedRigidbody.name);

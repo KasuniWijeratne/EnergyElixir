@@ -24,7 +24,8 @@ public class Notifications : MonoBehaviour
         { "OnBioMass", "The BioMass plant is now on. You are generating 8kW per hour." },
         { "OffBioMass", "The BioMass plant is off. Please put the leaves for it to process" },
         { "OffStreetLamps", "Street light has been turned off. You are generating 4kW"},
-        { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" }
+        { "OnStreetLamps" , "Street light has been turned on again. Hit SHIFT" },
+        { "Bulby_Interact", "This is Bulby. He can help you with your tasks. Press Shift to interact with him when he says Hi."}
     };
 
     public void sendNotification(string key)
@@ -74,7 +75,6 @@ public class Notifications : MonoBehaviour
         {
             message = "OffStreetLamps";
         }
-
         else if (tag == "BioMassPower" && trigger && !BioMassTask.BioMassTaskComplete)
         {
             message = "OffBioMass";
@@ -82,6 +82,10 @@ public class Notifications : MonoBehaviour
         else if (tag == "BioMassPower" && trigger && BioMassTask.BioMassTaskComplete)
         {
             message = "OnBioMass";
+        }
+        else if (tag == "Bulby" && trigger)
+        {
+            message = "Bulby_Interact";
         }
         else
         {
