@@ -82,4 +82,8 @@ public class MapHandler : MonoBehaviour
         }
     }
 
+    public void OnBackButtonClicked(){
+        SceneLoader.Instance.LoadMainMenuScene( );
+    }
+
 }

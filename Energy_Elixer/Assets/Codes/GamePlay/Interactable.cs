@@ -45,6 +45,8 @@ public class Interactable : MonoBehaviour
                 return;
             }
             else if (collision.attachedRigidbody.name == "GameComplete"){
+                PlayerManager.Instance.addScore(GameManager.score);
+                GameManager.score = 0;
                 SceneLoader.Instance.LoadmapScene();
             }
 
