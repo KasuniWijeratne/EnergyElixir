@@ -102,6 +102,6 @@ public class MainMenuManager : MonoBehaviour
     public void OnOptionsBtnClicked() {
         SoundManager.Instance.PlaySFX("button_clicked");
         // SceneLoader.Instance.LoadOptionsScene();
-        PlayerManager.Instance.addScore(100); // For testing purposes
+        // PlayerManager.Instance.addScore(100); // For testing purposes
     }
 }
